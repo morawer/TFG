@@ -9,10 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import kong.unirest.HttpResponse;
-import kong.unirest.Unirest;
-import kong.unirest.UnirestException;
-
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,18 +35,4 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-   /*private void validate() throws UnirestException {
-        //Unirest.setTimeouts(0, 0);
-        HttpResponse<String> response = Unirest.post("http://preskynet.dvuelta.es/api10getuserapikey")
-                .header("Content-Type", "application/x-www-form-urlencoded")
-                .header("Cookie", "sDvuelta=fbg1kd13mk5v1l6fitff56hv64")
-                .field("apiKey", "2c94243c0c0dc4452db4efd257d34d2f")
-                .field("data", "{\"user\": \"18057187W\", \"password\": \"7Rgh9faR\"}")
-                .asString();
-
-        name.setText((CharSequence) response);
-
-
-    }*/
 }

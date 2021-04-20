@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
+//Metodo para enviar los datos en una peticion Http post.
     public void postMethod() {
 
         StringRequest postRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
         };
         Volley.newRequestQueue(this).add(postRequest);
     }
-
+//Metodo que comprueba que el login con el servidor es correcto.
     public boolean errorLogin(String response) {
         try {
             JSONObject jsonObj = null;
@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
         }
         return false;
     }
-
+//Metodo para poner en blanco los EditText de "usuario" y "contraseña" y focus en "usuario".
     private void resetEditText() {
         name.setText("");
         password.setText("");

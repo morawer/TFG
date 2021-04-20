@@ -36,7 +36,7 @@ public class WelcomeActivity extends AppCompatActivity {
         welcome = (TextView) findViewById(R.id.welcomeText);
         leerJson(clienteJson);
     }
-//Método para leer el Json obtenido en extras.
+//Método para leer el Json obtenido en extras de MainActivity.
     public void leerJson(String clienteJson) {
         JSONObject jsonObj = null;
         try {

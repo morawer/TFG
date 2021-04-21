@@ -2,8 +2,11 @@ package com.example.dvueltaapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.android.volley.NetworkResponse;
@@ -25,6 +28,9 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private TextView welcome;
     Cliente cliente = new Cliente();
+    private Button expedientes;
+    private Button envioMulta;
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +40,28 @@ public class WelcomeActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         String clienteJson = (String) extras.getString("clienteJson");
         welcome = (TextView) findViewById(R.id.welcomeText);
+        expedientes = (Button) findViewById(R.id.botonExpediente);
+        envioMulta = (Button) findViewById(R.id.botonEnvio);
         leerJson(clienteJson);
+
+        expedientes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent = new Intent(WelcomeActivity.this, Expedientes.class);
+                startActivity(intent);
+            }
+        });
+
+        envioMulta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent = new Intent(WelcomeActivity.this, Envios.class);
+                startActivity(intent);
+            }
+        });
     }
-//Método para leer el Json obtenido en extras de MainActivity.
+
+    //Método para leer el Json obtenido en extras de MainActivity.
     public void leerJson(String clienteJson) {
         JSONObject jsonObj = null;
         try {

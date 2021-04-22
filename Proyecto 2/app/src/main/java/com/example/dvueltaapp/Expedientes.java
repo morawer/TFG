@@ -9,7 +9,8 @@ public class Expedientes {
     private String hechoDenunciado;
     private String importe;
     private String puntos;
-    private Imagen imagen;
+    private String matricula;
+    private String idImagen;
 
     public Expedientes() {
     }
@@ -70,11 +71,34 @@ public class Expedientes {
         this.puntos = puntos;
     }
 
-    public Imagen getImagen() {
-        return imagen;
+    public String getIdImagen() {
+        return idImagen;
     }
 
-    public void setImagen(Imagen imagen) {
-        this.imagen = imagen;
+    public void setIdImagen(String idImagen) {
+        this.idImagen = idImagen;
+    }
+
+    public String getMatricula() {
+        return matricula;
+    }
+
+    public void setMatricula(String matricula) {
+        this.matricula = matricula;
+    }
+
+    @Override
+    public String toString() {
+        return "Expedientes{" +
+                "fechaExp='" + fechaExp + '\'' +
+                ", nroExp='" + nroExp + '\'' +
+                ", estadoExp='" + estadoExp + '\'' +
+                ", NomOrg='" + NomOrg + '\'' +
+                ", hechoDenunciado='" + hechoDenunciado + '\'' +
+                ", importe='" + importe + '\'' +
+                ", puntos='" + puntos + '\'' +
+                ", matricula='" + matricula + '\'' +
+                ", idImagen=" + idImagen +
+                '}';
     }
 }

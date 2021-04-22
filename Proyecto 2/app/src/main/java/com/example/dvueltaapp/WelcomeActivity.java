@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -17,9 +18,10 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private TextView welcome;
     Cliente cliente = new Cliente();
+    Expedientes expediente = new Expedientes();
     private Button expedientes;
     private Button envioMulta;
-    Intent intent;
+    Intent intentApiUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,16 +38,19 @@ public class WelcomeActivity extends AppCompatActivity {
         expedientes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent = new Intent(WelcomeActivity.this, Expedientes.class);
-                startActivity(intent);
+                intentApiUser = new Intent(WelcomeActivity.this, ExpedienteActivity.class);
+                String apiKeyUser = cliente.getApiKey();
+                intentApiUser.putExtra("apiKeyUser", apiKeyUser);
+                startActivity(intentApiUser);
             }
         });
 
         envioMulta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent = new Intent(WelcomeActivity.this, Imagen.class);
-                startActivity(intent);
+                //intent = new Intent(WelcomeActivity.this, Imagen.class);
+                //startActivity(intent);
+                Toast.makeText(WelcomeActivity.this, "Sin servicio.", Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -52,9 +52,12 @@
         android:id="@+id/menuImage"
         android:layout_width="73dp"
         android:layout_height="70dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.073"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/baseline_menu_black_24dp"
-        tools:layout_editor_absoluteX="32dp"
-        tools:layout_editor_absoluteY="16dp"
         tools:ignore="MissingConstraints" />
 
     <ImageView

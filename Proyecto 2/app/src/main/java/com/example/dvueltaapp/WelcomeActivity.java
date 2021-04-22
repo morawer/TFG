@@ -9,19 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.android.volley.NetworkResponse;
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
 
 
 public class WelcomeActivity extends AppCompatActivity {
@@ -55,7 +44,7 @@ public class WelcomeActivity extends AppCompatActivity {
         envioMulta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent = new Intent(WelcomeActivity.this, Envios.class);
+                intent = new Intent(WelcomeActivity.this, Imagen.class);
                 startActivity(intent);
             }
         });

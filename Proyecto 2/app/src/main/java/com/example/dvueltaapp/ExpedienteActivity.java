@@ -1,5 +1,6 @@
 package com.example.dvueltaapp;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -18,6 +19,8 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -47,6 +50,7 @@ public class ExpedienteActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         apiKeyUser = (String) extras.getString("apiKeyUser");
+        cliente.setApiKey(apiKeyUser);
 
         postMethod();
 
@@ -85,11 +89,9 @@ public class ExpedienteActivity extends AppCompatActivity {
 
                 expedienteList.add(expediente);
             }
-
             cliente.setExpediente(expedienteList);
 
             System.out.println(cliente);
-
             Log.d("TAG-leerJson-Expedientes()", "Lectura correcta Json.");
 
         } catch (JSONException e) {
@@ -110,7 +112,6 @@ public class ExpedienteActivity extends AppCompatActivity {
                         Toast.makeText(ExpedienteActivity.this, "Problema al obtener los expedientes", Toast.LENGTH_SHORT).show();
                         intent = new Intent(ExpedienteActivity.this, WelcomeActivity.class);
                         startActivity(intent);
-
                     } else {
                         leerJson(response);
                     }

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".WelcomeActivity">
 
     <TextView
@@ -19,7 +20,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.199" />
 
-
     <Button
         android:id="@+id/botonExpediente"
         android:layout_width="280dp"
@@ -27,6 +27,7 @@
         android:layout_marginBottom="344dp"
         android:background="@drawable/boton_redondo"
         android:text="Expedientes"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
@@ -42,6 +43,7 @@
         android:layout_marginBottom="276dp"
         android:background="@drawable/boton_redondo"
         android:text="Envio de multa"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
@@ -49,33 +51,21 @@
         app:layout_constraintTop_toBottomOf="@+id/botonExpediente" />
 
     <ImageView
-        android:id="@+id/menuImage"
-        android:layout_width="73dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.073"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/baseline_menu_black_24dp"
-        tools:ignore="MissingConstraints" />
-
-    <ImageView
         android:id="@+id/logodvuelta"
         android:layout_width="250dp"
         android:layout_height="70dp"
-        android:layout_marginStart="48dp"
-        app:layout_constraintStart_toEndOf="@+id/menuImage"
         app:srcCompat="@drawable/dvuelta"
-        tools:layout_editor_absoluteY="16dp"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="80dp"
+        tools:layout_editor_absoluteY="26dp" />
 
     <ImageView
         android:id="@+id/gradienteFirma"
-        android:layout_width="match_parent"
-        android:layout_height="231dp"
+        android:layout_width="411dp"
+        android:layout_height="138dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:srcCompat="@drawable/background_dvuelta" />
+        app:srcCompat="@drawable/background_dvuelta"
+        tools:ignore="MissingConstraints" />
 
 
     <TextView

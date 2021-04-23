@@ -55,6 +55,7 @@
         android:layout_marginTop="35dp"
         android:background="@drawable/boton_redondo"
         android:text="@string/entrar"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"

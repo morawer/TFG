@@ -30,8 +30,8 @@ public class MainActivity extends AppCompatActivity {
     private EditText password;
     private Button login;
     private int statusCode = 0;
-    private final String url = "http://preskynet.dvuelta.es/api10getuserapikey";
-    private final String apiKeyAcess = "2c94243c0c0dc4452db4efd257d34d2f";
+    private final String URL = "http://preskynet.dvuelta.es/api10getuserapikey";
+    private final String APIKEY_ACCESS = "2c94243c0c0dc4452db4efd257d34d2f";
     Intent intent;
     String user;
     String passwordUser;
@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
 //Metodo para enviar los datos en una peticion Http post.
     public void postMethod() {
 
-        StringRequest postRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+        StringRequest postRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 System.out.println(response);
@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
 
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
-                params.put("apiKey", apiKeyAcess);
+                params.put("apiKey", APIKEY_ACCESS);
                 params.put("data", "{\"user\":\"" + user + "\", \"password\":\"" + passwordUser + "\"}");
                 return params;
             }

@@ -20,13 +20,44 @@
         app:layout_constraintVertical_bias="0.199" />
 
 
+    <Button
+        android:id="@+id/botonExpediente"
+        android:layout_width="280dp"
+        android:layout_height="42dp"
+        android:layout_marginBottom="344dp"
+        android:background="@drawable/boton_redondo"
+        android:text="Expedientes"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/welcomeText"
+        app:layout_constraintVertical_bias="0.993" />
+
+    <Button
+        android:id="@+id/botonEnvio"
+        android:layout_width="280dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="276dp"
+        android:background="@drawable/boton_redondo"
+        android:text="Envio de multa"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/botonExpediente" />
+
     <ImageView
         android:id="@+id/menuImage"
         android:layout_width="73dp"
         android:layout_height="70dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.073"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/baseline_menu_black_24dp"
-        tools:layout_editor_absoluteX="32dp"
-        tools:layout_editor_absoluteY="16dp"
         tools:ignore="MissingConstraints" />
 
     <ImageView

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Cliente {
     private String nombre;
     private String apiKey;
+    private ArrayList<Expedientes> expediente;
 
     public Cliente() {
     }
@@ -23,5 +24,22 @@ public class Cliente {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public ArrayList<Expedientes> getExpediente() {
+        return expediente;
+    }
+
+    public void setExpediente(ArrayList<Expedientes> expediente) {
+        this.expediente = expediente;
+    }
+
+    @Override
+    public String toString() {
+        return "Cliente{" +
+                "nombre='" + nombre + '\'' +
+                ", apiKey='" + apiKey + '\'' +
+                ", expediente=" + expediente +
+                '}';
     }
 }

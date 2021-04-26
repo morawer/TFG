@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="6dp"
     android:padding="6dp"
+    android:background="#6644"
     >
 
     <TextView

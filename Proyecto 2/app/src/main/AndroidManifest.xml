@@ -15,8 +15,8 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".ExpedienteActivity"
-            android:label="@string/title_activity_expediente"
-            android:theme="@style/Theme.DVueltaApp.NoActionBar"></activity>
+            android:label="@string/title_activity_expediente">
+            </activity>
         <activity android:name=".WelcomeActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

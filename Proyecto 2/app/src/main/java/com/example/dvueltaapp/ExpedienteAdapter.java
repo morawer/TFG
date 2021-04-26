@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -36,17 +37,20 @@ public class ExpedienteAdapter extends ArrayAdapter<Expedientes> {
         TextView importeExp = (TextView) listaPersonalizada.findViewById(R.id.expedienteImporte);
 
         String idExpediente = expediente.getNroExp();
-        idExp.setText(idExpediente);
+        idExp.setText("Nº exp: " + idExpediente.substring(1,8));
 
         String fechaExpediente = expediente.getFechaExp();
-        fechaExp.setText(fechaExpediente);
+        fechaExp.setText("Fecha: " + fechaExpediente.substring(0, 10));
 
         String estadoExpediente = expediente.getEstadoExp();
-        estadoExp.setText(estadoExpediente);
+        estadoExp.setText("Estado: " + estadoExpediente);
 
         String importeExpediente = expediente.getImporte();
-        importeExp.setText(importeExpediente);
-
+        if (importeExpediente.equals(".00")) {
+            importeExp.setText("Importe: 0 €");
+        }else {
+            importeExp.setText("Importe: " + importeExpediente + " €");
+        }
         return listaPersonalizada;
     }
 }

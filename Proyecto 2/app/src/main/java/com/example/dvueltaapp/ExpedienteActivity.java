@@ -19,6 +19,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -38,6 +39,7 @@ public class ExpedienteActivity extends AppCompatActivity {
     private int statusCode = 0;
     Intent intent;
     Cliente cliente = new Cliente();
+    ListView listViewExpedientes;
 
     String apiKeyUser;
 
@@ -46,11 +48,14 @@ public class ExpedienteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_expediente);
 
+
         Bundle extras = getIntent().getExtras();
         apiKeyUser = (String) extras.getString("apiKeyUser");
         cliente.setApiKey(apiKeyUser);
 
         postMethod();
+
+
     }
 
     public void leerJson(String clienteJson) {
@@ -80,9 +85,16 @@ public class ExpedienteActivity extends AppCompatActivity {
             cliente.setExpediente(expedienteList);
 
             ExpedienteAdapter itemsExpediente = new ExpedienteAdapter(ExpedienteActivity.this, expedienteList);
-            ListView listViewExpedientes = (ListView) findViewById(R.id.listaExpediente);
+            listViewExpedientes = (ListView) findViewById(R.id.listaExpediente);
 
             listViewExpedientes.setAdapter(itemsExpediente);
+
+            listViewExpedientes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Toast.makeText(ExpedienteActivity.this, cliente.getExpediente().get(position).getNomOrg(), Toast.LENGTH_SHORT).show();
+                }
+            });
 
             System.out.println(cliente);
             Log.d("TAG-leerJson-Expedientes()", "Lectura correcta Json.");

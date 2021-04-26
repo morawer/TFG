@@ -4,17 +4,18 @@
     android:layout_height="wrap_content"
     android:layout_margin="6dp"
     android:padding="6dp"
-    android:background="#6778">
-
+    >
 
     <TextView
         android:id="@+id/expedienteId"
+        android:textColor="@color/black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Nº exp: xxxx" />
 
     <TextView
         android:id="@+id/expedienteFecha"
+        android:textColor="@color/black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Fecha: xx/xx/xxxx"
@@ -23,58 +24,23 @@
 
     <TextView
         android:id="@+id/expedienteEstado"
+        android:textColor="@color/black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Estado: xxxxxxxxxxx"
-        android:layout_below="@id/expedienteFecha"
-        />
-
-    <TextView
-        android:id="@+id/expedienteOrg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Organismo: xxxxxxxxxxx"
-        android:layout_below="@id/expedienteEstado"
-        />
+        android:layout_below="@id/expedienteImporte"
+        android:layout_marginStart="192dp"
+        android:layout_marginEnd="-197dp"
+        android:text="Estado: xxxxxxxxxxx" />
 
     <TextView
         android:id="@+id/expedienteImporte"
+        android:textColor="@color/black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignStart="@id/expedienteFecha"
         android:layout_marginStart="192dp"
         android:layout_marginEnd="-197dp"
         android:text="Importe: xxxx€" />
-
-    <TextView
-        android:id="@+id/expedienteTipo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@id/expedienteId"
-        android:layout_marginStart="192dp"
-        android:layout_marginEnd="-197dp"
-        android:layout_below="@id/expedienteImporte"
-        android:text="Tipo: xxxxxxxxxxxxxxxx" />
-
-    <TextView
-        android:id="@+id/expedientePuntos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@id/expedienteEstado"
-        android:layout_marginStart="192dp"
-        android:layout_marginEnd="-197dp"
-        android:layout_below="@id/expedienteTipo"
-        android:text="Puntos: xxx" />
-
-    <TextView
-        android:id="@+id/expedienteMatricula"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@id/expedienteOrg"
-        android:layout_marginStart="192dp"
-        android:layout_marginEnd="-197dp"
-        android:layout_below="@id/expedientePuntos"
-        android:text="Matricula: xxxxXXX" />
 
 
 </RelativeLayout>

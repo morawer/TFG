@@ -38,33 +38,19 @@ public class ExpedienteActivity extends AppCompatActivity {
     private int statusCode = 0;
     Intent intent;
     Cliente cliente = new Cliente();
-    Expedientes expediente = new Expedientes();
+
     String apiKeyUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_expediente);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         Bundle extras = getIntent().getExtras();
         apiKeyUser = (String) extras.getString("apiKeyUser");
         cliente.setApiKey(apiKeyUser);
 
         postMethod();
-
-        CollapsingToolbarLayout toolBarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
-        toolBarLayout.setTitle(getTitle());
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
     }
 
     public void leerJson(String clienteJson) {
@@ -77,6 +63,8 @@ public class ExpedienteActivity extends AppCompatActivity {
             for (int i = 0; i < jsonArray.length(); i++){
 
                 JSONObject json = jsonArray.getJSONObject(i);
+                Expedientes expediente = new Expedientes();
+
                 expediente.setFechaExp(json.getString("FechaInfraccion"));
                 expediente.setNroExp(json.getString("NumExp"));
                 expediente.setEstadoExp(json.getString("EstadoExpediente"));
@@ -90,6 +78,11 @@ public class ExpedienteActivity extends AppCompatActivity {
                 expedienteList.add(expediente);
             }
             cliente.setExpediente(expedienteList);
+
+            ExpedienteAdapter itemsExpediente = new ExpedienteAdapter(ExpedienteActivity.this, expedienteList);
+            ListView listViewExpedientes = (ListView) findViewById(R.id.listaExpediente);
+
+            listViewExpedientes.setAdapter(itemsExpediente);
 
             System.out.println(cliente);
             Log.d("TAG-leerJson-Expedientes()", "Lectura correcta Json.");

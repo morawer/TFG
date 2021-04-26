@@ -37,7 +37,9 @@ public class ExpedienteAdapter extends ArrayAdapter<Expedientes> {
         TextView importeExp = (TextView) listaPersonalizada.findViewById(R.id.expedienteImporte);
 
         String idExpediente = expediente.getNroExp();
-        idExp.setText("Nº exp: " + idExpediente.substring(1,8));
+        String[] expsPartes = idExpediente.split(",");
+        int numeroExps = expsPartes.length;
+        idExp.setText("Nº exp: " + expsPartes[numeroExps-1]);
 
         String fechaExpediente = expediente.getFechaExp();
         fechaExp.setText("Fecha: " + fechaExpediente.substring(0, 10));

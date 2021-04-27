@@ -48,14 +48,11 @@ public class ExpedienteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_expediente);
 
-
         Bundle extras = getIntent().getExtras();
         apiKeyUser = (String) extras.getString("apiKeyUser");
         cliente.setApiKey(apiKeyUser);
 
         postMethod();
-
-
     }
 
     public void leerJson(String clienteJson) {

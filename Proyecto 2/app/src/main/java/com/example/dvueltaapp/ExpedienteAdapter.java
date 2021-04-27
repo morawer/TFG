@@ -38,8 +38,8 @@ public class ExpedienteAdapter extends ArrayAdapter<Expedientes> {
 
         String idExpediente = expediente.getNroExp();
         String[] expsPartes = idExpediente.split(",");
-        int numeroExps = expsPartes.length;
-        idExp.setText("Nº exp: " + expsPartes[numeroExps-1]);
+        int ultimoExps = expsPartes.length - 1;
+        idExp.setText("Nº exp: " + expsPartes[ultimoExps]);
 
         String fechaExpediente = expediente.getFechaExp();
         fechaExp.setText("Fecha: " + fechaExpediente.substring(0, 10));

@@ -1,6 +1,7 @@
 package com.example.dvueltaapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,7 +28,17 @@ public class WelcomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
-        getSupportActionBar().hide();
+
+        Toolbar mibarra= (Toolbar) findViewById(R.id.toolBar);
+        setSupportActionBar(mibarra);
+
+        mibarra.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(WelcomeActivity.this, "Sin servicio", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         Bundle extras = getIntent().getExtras();
         String clienteJson = (String) extras.getString("clienteJson");
         welcome = (TextView) findViewById(R.id.welcomeText);

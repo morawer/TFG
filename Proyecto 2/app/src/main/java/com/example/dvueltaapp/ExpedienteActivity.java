@@ -40,13 +40,22 @@ public class ExpedienteActivity extends AppCompatActivity {
     Intent intent;
     Cliente cliente = new Cliente();
     ListView listViewExpedientes;
-
     String apiKeyUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_expediente);
+
+        Toolbar toolBarExp= (Toolbar) findViewById(R.id.toolBarExp);
+        setSupportActionBar(toolBarExp);
+
+        toolBarExp.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(ExpedienteActivity.this, "Sin servicio", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         Bundle extras = getIntent().getExtras();
         apiKeyUser = (String) extras.getString("apiKeyUser");

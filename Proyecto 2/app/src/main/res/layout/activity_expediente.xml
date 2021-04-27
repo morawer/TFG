@@ -5,13 +5,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".ExpedienteActivity"
+    tools:context=".ExpedienteActivity">
 
-    >
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolBarExp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:navigationIcon="@drawable/twotone_menu_black_20"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="-2dp">
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/dvuelta" />
+
+    </androidx.appcompat.widget.Toolbar>
 
     <ListView
         android:id="@+id/listaExpediente"
+        android:layout_below="@id/toolBarExp"
         android:layout_width="match_parent"
         android:layout_height="507dp"
         android:alpha="99"

@@ -7,11 +7,30 @@
     android:background="@color/white"
     tools:context=".WelcomeActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        tools:ignore="MissingConstraints"
+        app:navigationIcon="@drawable/twotone_menu_black_20"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="-2dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/dvuelta"/>
+
+    </androidx.appcompat.widget.Toolbar>
+
     <TextView
         android:id="@+id/welcomeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=""
+        android:text="BIENVENIDO NOMBRE TEST APELLIDOS TEST"
+        android:padding="14dp"
         android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -49,18 +68,6 @@
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/botonExpediente" />
-
-    <ImageView
-        android:id="@+id/logodvuelta"
-        android:layout_width="250dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="32dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/dvuelta"
-        tools:ignore="MissingConstraints" />
 
     <ImageView
         android:id="@+id/gradienteFirma"

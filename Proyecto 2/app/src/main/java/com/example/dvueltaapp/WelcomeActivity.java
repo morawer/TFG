@@ -1,11 +1,14 @@
 package com.example.dvueltaapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -23,6 +26,38 @@ public class WelcomeActivity extends AppCompatActivity {
     private Button expedientes;
     private Button envioMulta;
     Intent intentApiUser;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_welcome, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_expediente:
+                intentApiUser = new Intent(WelcomeActivity.this, ExpedienteActivity.class);
+                String apiKeyUser = cliente.getApiKey();
+                intentApiUser.putExtra("apiKeyUser", apiKeyUser);
+                startActivity(intentApiUser);
+                break;
+
+            case R.id.menu_envio:
+                Toast.makeText(WelcomeActivity.this, "Sin servicio", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.menu_ayuda:
+                Toast.makeText(WelcomeActivity.this, "Sin servicio", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.menu_salir:
+                Intent salida = new Intent(WelcomeActivity.this, MainActivity.class);
+                startActivity(salida);
+                System.exit(0);
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +99,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 Toast.makeText(WelcomeActivity.this, "Sin servicio.", Toast.LENGTH_SHORT).show();
             }
         });
+
     }
 
     //Método para leer el Json obtenido en extras de MainActivity.

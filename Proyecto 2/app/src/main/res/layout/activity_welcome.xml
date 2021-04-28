@@ -14,7 +14,6 @@
         android:background="@color/white"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         tools:ignore="MissingConstraints"
-        app:navigationIcon="@drawable/twotone_menu_black_20"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="-2dp">
 

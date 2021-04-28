@@ -1,0 +1,24 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <item
+            android:id="@+id/menu_expediente"
+            android:orderInCategory="100"
+            android:title="Expedientes"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/menu_envio"
+            android:orderInCategory="100"
+            android:title="Enviar multa"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/menu_ayuda"
+            android:orderInCategory="100"
+            android:title="Ayuda"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/menu_salir"
+            android:orderInCategory="100"
+            android:title="Salir"
+            app:showAsAction="never" />
+</menu>

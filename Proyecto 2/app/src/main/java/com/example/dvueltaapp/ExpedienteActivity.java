@@ -49,6 +49,7 @@ public class ExpedienteActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
+
             case R.id.menu_inicio:
                 Intent inicio = new Intent(ExpedienteActivity.this, WelcomeActivity.class);
                 startActivity(inicio);
@@ -65,7 +66,6 @@ public class ExpedienteActivity extends AppCompatActivity {
                 System.exit(0);
                 break;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -76,13 +76,6 @@ public class ExpedienteActivity extends AppCompatActivity {
 
         Toolbar toolBarExp= (Toolbar) findViewById(R.id.toolBarExp);
         setSupportActionBar(toolBarExp);
-
-        toolBarExp.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(ExpedienteActivity.this, "Sin servicio", Toast.LENGTH_SHORT).show();
-            }
-        });
 
         Bundle extras = getIntent().getExtras();
         apiKeyUser = (String) extras.getString("apiKeyUser");

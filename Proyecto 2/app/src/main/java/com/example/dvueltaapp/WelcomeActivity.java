@@ -23,8 +23,6 @@ public class WelcomeActivity extends AppCompatActivity {
     private TextView welcome;
     Cliente cliente = new Cliente();
     Expedientes expediente = new Expedientes();
-    private Button expedientes;
-    private Button envioMulta;
     Intent intentApiUser;
 
     @Override
@@ -55,7 +53,6 @@ public class WelcomeActivity extends AppCompatActivity {
                 System.exit(0);
                 break;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -77,29 +74,7 @@ public class WelcomeActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         String clienteJson = (String) extras.getString("clienteJson");
         welcome = (TextView) findViewById(R.id.welcomeText);
-        expedientes = (Button) findViewById(R.id.botonExpediente);
-        envioMulta = (Button) findViewById(R.id.botonEnvio);
         leerJson(clienteJson);
-
-        expedientes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intentApiUser = new Intent(WelcomeActivity.this, ExpedienteActivity.class);
-                String apiKeyUser = cliente.getApiKey();
-                intentApiUser.putExtra("apiKeyUser", apiKeyUser);
-                startActivity(intentApiUser);
-            }
-        });
-
-        envioMulta.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //intent = new Intent(WelcomeActivity.this, Imagen.class);
-                //startActivity(intent);
-                Toast.makeText(WelcomeActivity.this, "Sin servicio.", Toast.LENGTH_SHORT).show();
-            }
-        });
-
     }
 
     //Método para leer el Json obtenido en extras de MainActivity.

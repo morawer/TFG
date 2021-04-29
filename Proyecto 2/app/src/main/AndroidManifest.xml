@@ -13,10 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true">
+        <activity android:name=".ImagenExpActivity"></activity>
         <activity
             android:name=".ExpedienteActivity"
-            android:label="@string/title_activity_expediente">
-            </activity>
+            android:label="@string/title_activity_expediente"></activity>
         <activity android:name=".WelcomeActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

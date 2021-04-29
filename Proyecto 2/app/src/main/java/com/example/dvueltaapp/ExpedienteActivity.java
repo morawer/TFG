@@ -37,6 +37,8 @@ public class ExpedienteActivity extends AppCompatActivity {
     private int statusCode = 0;
     Intent intent;
     Cliente cliente = new Cliente();
+    Expedientes expediente;
+    ArrayList<Expedientes> expedienteList;
     ListView listViewExpedientes;
     String apiKeyUser;
 
@@ -89,12 +91,12 @@ public class ExpedienteActivity extends AppCompatActivity {
         try {
             JSONObject jsonObject = new JSONObject(clienteJson);
             JSONArray jsonArray = jsonObject.getJSONArray("msg");
-            ArrayList<Expedientes> expedienteList = new ArrayList<>();
+            expedienteList = new ArrayList<>();
 
             for (int i = 0; i < jsonArray.length(); i++){
 
                 JSONObject json = jsonArray.getJSONObject(i);
-                Expedientes expediente = new Expedientes();
+                expediente = new Expedientes();
 
                 expediente.setFechaExp(json.getString("FechaInfraccion"));
                 expediente.setNroExp(json.getString("NumExp"));
@@ -114,11 +116,16 @@ public class ExpedienteActivity extends AppCompatActivity {
             listViewExpedientes = (ListView) findViewById(R.id.listaExpediente);
 
             listViewExpedientes.setAdapter(itemsExpediente);
-
             listViewExpedientes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Toast.makeText(ExpedienteActivity.this, cliente.getExpediente().get(position).getNomOrg(), Toast.LENGTH_SHORT).show();
+
+                    String idImagen = cliente.getExpediente().get(position).getIdImagen();
+                    String apiKeyUser = cliente.getApiKey();
+                    Intent intent = new Intent (ExpedienteActivity.this, ImagenExpActivity.class);
+                    intent.putExtra("apiKeyUser", apiKeyUser);
+                    intent.putExtra("idImagen", idImagen);
+                    startActivity(intent);
                 }
             });
 

@@ -2,11 +2,20 @@ package com.example.dvueltaapp;
 
 public class Imagen {
 
+    private String apiKeyUser;
     private String idImagen;
     private String nombre;
     private String base64;
 
     public Imagen() {
+    }
+
+    public String getApiKeyUser() {
+        return apiKeyUser;
+    }
+
+    public void setApiKeyUser(String apiKeyUser) {
+        this.apiKeyUser = apiKeyUser;
     }
 
     public String getIdImagen() {

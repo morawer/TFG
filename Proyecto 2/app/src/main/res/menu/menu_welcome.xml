@@ -4,7 +4,7 @@
         <item
             android:id="@+id/menu_expediente"
             android:orderInCategory="100"
-            android:title="Expedientes"
+            android:title="Mis expedientes"
             app:showAsAction="never" />
         <item
             android:id="@+id/menu_envio"

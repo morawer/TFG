@@ -30,17 +30,25 @@
         android:id="@+id/listaExpediente"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/toolBarExp"
+        android:layout_below="@id/nombreExp"
         android:layout_marginTop="0dp"
         android:alpha="99"
         android:divider="@color/black"
         android:dividerHeight="3dp"
         android:drawSelectorOnTop="true"
         android:footerDividersEnabled="false">
-
-
-
     </ListView>
+
+    <TextView
+        android:id="@+id/nombreExp"
+        android:textSize="16sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolBarExp"
+        android:text="Expedientes de:"
+        android:textColor="#013171"
+        android:layout_margin="5dp"
+        />
 
     <TextView
         android:id="@+id/actualizacion"

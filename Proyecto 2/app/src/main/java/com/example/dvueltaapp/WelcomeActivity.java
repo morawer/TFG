@@ -21,13 +21,11 @@ import org.json.JSONObject;
 
 import java.util.Date;
 
-
 public class WelcomeActivity extends AppCompatActivity {
 
     private TextView welcome;
     Cliente cliente = new Cliente();
-    Expedientes expediente = new Expedientes();
-    Intent intentApiUser;
+    Intent intent;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -39,10 +37,12 @@ public class WelcomeActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_expediente:
-                intentApiUser = new Intent(WelcomeActivity.this, ExpedienteActivity.class);
+                intent = new Intent(WelcomeActivity.this, ExpedienteActivity.class);
                 String apiKeyUser = cliente.getApiKey();
-                intentApiUser.putExtra("apiKeyUser", apiKeyUser);
-                startActivity(intentApiUser);
+                String nombreUser = cliente.getNombre();
+                intent.putExtra("apiKeyUser", apiKeyUser);
+                intent.putExtra("nombreUser", nombreUser);
+                startActivity(intent);
                 break;
 
             case R.id.menu_envio:

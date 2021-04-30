@@ -2,6 +2,7 @@ package com.example.dvueltaapp;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Typeface;
 import android.os.Bundle;
 
 import com.android.volley.NetworkResponse;
@@ -45,7 +46,9 @@ public class ExpedienteActivity extends AppCompatActivity {
     ArrayList<Expedientes> expedienteList;
     ListView listViewExpedientes;
     String apiKeyUser;
+    String nombreUser;
     TextView fecha;
+    TextView nombreExp;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -87,7 +90,10 @@ public class ExpedienteActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         apiKeyUser = (String) extras.getString("apiKeyUser");
+        nombreUser = (String) extras.getString("nombreUser");
+
         cliente.setApiKey(apiKeyUser);
+        cliente.setNombre(nombreUser);
 
         postMethod();
     }
@@ -117,6 +123,11 @@ public class ExpedienteActivity extends AppCompatActivity {
                 expedienteList.add(expediente);
             }
             cliente.setExpediente(expedienteList);
+
+            nombreExp = (TextView) findViewById(R.id.nombreExp);
+            Typeface typeface = getResources().getFont(R.font.hindmedium);
+            nombreExp.setTypeface(typeface);
+            nombreExp.setText("Expedientes de " + cliente.getNombre());
 
             ExpedienteAdapter itemsExpediente = new ExpedienteAdapter(ExpedienteActivity.this, expedienteList);
             listViewExpedientes = (ListView) findViewById(R.id.listaExpediente);

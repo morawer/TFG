@@ -102,10 +102,10 @@ public class WelcomeActivity extends AppCompatActivity {
             if(horas >= 6 && horas < 12){
                 welcome.setText("Buenos días \n" + cliente.getNombre());
             }
-            if (horas >= 12 && horas < 8){
+            if (horas >= 12 && horas < 20){
                 welcome.setText("Buenas tardes \n" + cliente.getNombre());
             }
-            if (horas >= 8 && horas < 6){
+            if (horas >= 20 && horas < 6){
                 welcome.setText("Buenas noches \n" + cliente.getNombre());
             }
 

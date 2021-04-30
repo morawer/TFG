@@ -2,6 +2,7 @@ package com.example.dvueltaapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -38,6 +39,7 @@ public class ImagenExpActivity extends AppCompatActivity {
     int statusCode = 0;
     TextView idFotoText;
     TextView nombreFotoText;
+    TextView baseImagen;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -50,9 +52,6 @@ public class ImagenExpActivity extends AppCompatActivity {
         switch (item.getItemId()) {
 
             case R.id.menu_inicio:
-                Intent inicio = new Intent(ImagenExpActivity.this, WelcomeActivity.class);
-                startActivity(inicio);
-                break;
             case R.id.menu_envio:
             case R.id.menu_ayuda:
                 Toast.makeText(ImagenExpActivity.this, "Sin servicio", Toast.LENGTH_SHORT).show();
@@ -72,16 +71,21 @@ public class ImagenExpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_imagen_exp);
 
+        Toolbar toolBarImagenExp= (Toolbar) findViewById(R.id.toolBarImagenExp);
+        setSupportActionBar(toolBarImagenExp);
+
         imagen = new Imagen();
 
         Bundle extras = getIntent().getExtras();
         apiKeyUser = (String) extras.getString("apiKeyUser");
         idImagen = (String) extras.getString("idImagen");
+
         imagen.setApiKeyUser(apiKeyUser);
         imagen.setIdImagen(idImagen);
 
         idFotoText = (TextView) findViewById(R.id.idfoto);
         nombreFotoText = (TextView) findViewById(R.id.nombrefoto);
+        baseImagen = (TextView) findViewById(R.id.imagenBase64);
 
         postMethod();
     }
@@ -165,6 +169,8 @@ public class ImagenExpActivity extends AppCompatActivity {
 
             idFotoText.setText(imagen.getIdImagen());
             nombreFotoText.setText(imagen.getNombre());
+            String baseImg = imagen.getBase64();
+            baseImagen.setText(baseImg.substring(0,15) + "...");
 
         } catch (JSONException e) {
             e.printStackTrace();

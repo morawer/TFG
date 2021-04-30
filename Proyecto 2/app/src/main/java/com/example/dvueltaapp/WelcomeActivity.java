@@ -6,6 +6,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -65,9 +66,23 @@ public class WelcomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
+        Toolbar mibarra= (Toolbar) findViewById(R.id.toolBar);
+        setSupportActionBar(mibarra);
+
+        mibarra.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(WelcomeActivity.this, "Sin servicio", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         Bundle extras = getIntent().getExtras();
         String clienteJson = (String) extras.getString("clienteJson");
         welcome = (TextView) findViewById(R.id.welcomeText);
+
+        Typeface typeface = getResources().getFont(R.font.hindmedium);
+        welcome.setTypeface(typeface);
+
         leerJson(clienteJson);
     }
 

@@ -18,6 +18,8 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Date;
+
 
 public class WelcomeActivity extends AppCompatActivity {
 
@@ -63,16 +65,6 @@ public class WelcomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
-        Toolbar mibarra= (Toolbar) findViewById(R.id.toolBar);
-        setSupportActionBar(mibarra);
-
-        mibarra.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(WelcomeActivity.this, "Sin servicio", Toast.LENGTH_SHORT).show();
-            }
-        });
-
         Bundle extras = getIntent().getExtras();
         String clienteJson = (String) extras.getString("clienteJson");
         welcome = (TextView) findViewById(R.id.welcomeText);
@@ -89,10 +81,20 @@ public class WelcomeActivity extends AppCompatActivity {
             cliente.setNombre(msg.getString("displayName"));
             cliente.setApiKey(msg.getString("apiKey"));
 
-            welcome.setText("Bienvenido\n" + cliente.getNombre());
+            Date dt = new Date();
+            int horas = dt.getHours();
+
+            if(horas >= 6 && horas < 12){
+                welcome.setText("Buenos días \n" + cliente.getNombre());
+            }
+            if (horas >= 12 && horas < 8){
+                welcome.setText("Buenas tardes \n" + cliente.getNombre());
+            }
+            if (horas >= 8 && horas < 6){
+                welcome.setText("Buenas noches \n" + cliente.getNombre());
+            }
 
             Log.d("TAG-leerJson()", "Lectura correcta Json.");
-
         } catch (JSONException e) {
             e.printStackTrace();
             Log.d("TAG-leerJson()_ERROR", "Error de lectura Json.");

@@ -21,13 +21,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,6 +45,7 @@ public class ExpedienteActivity extends AppCompatActivity {
     ArrayList<Expedientes> expedienteList;
     ListView listViewExpedientes;
     String apiKeyUser;
+    TextView fecha;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -116,8 +120,14 @@ public class ExpedienteActivity extends AppCompatActivity {
 
             ExpedienteAdapter itemsExpediente = new ExpedienteAdapter(ExpedienteActivity.this, expedienteList);
             listViewExpedientes = (ListView) findViewById(R.id.listaExpediente);
-
             listViewExpedientes.setAdapter(itemsExpediente);
+
+            Calendar c = Calendar.getInstance();
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            fecha = (TextView)findViewById(R.id.actualizacion);
+            String formattedDate = df.format(c.getTime());
+            fecha.setText("Ultima actualización: " + formattedDate);
+
             listViewExpedientes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

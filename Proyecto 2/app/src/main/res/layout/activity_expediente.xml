@@ -28,22 +28,35 @@
 
     <ListView
         android:id="@+id/listaExpediente"
-        android:layout_below="@id/toolBarExp"
         android:layout_width="match_parent"
-        android:layout_height="507dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolBarExp"
+        android:layout_marginTop="0dp"
         android:alpha="99"
         android:divider="@color/black"
         android:dividerHeight="3dp"
         android:drawSelectorOnTop="true"
-        android:footerDividersEnabled="false"></ListView>
+        android:footerDividersEnabled="false">
 
+
+
+    </ListView>
+
+    <TextView
+        android:id="@+id/actualizacion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/listaExpediente"
+        android:text="Obteniendo expedientes..."
+        android:textAlignment="center" />
 
     <ImageView
         android:id="@+id/gradienteFirma"
         android:layout_width="match_parent"
         android:layout_height="224dp"
-        android:layout_below="@+id/listaExpediente"
+        android:layout_alignParentBottom="true"
         android:layout_marginTop="0dp"
+        android:layout_marginBottom="0dp"
         app:srcCompat="@drawable/background_dvuelta"
         tools:ignore="MissingConstraints"></ImageView>
 

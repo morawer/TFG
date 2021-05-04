@@ -173,13 +173,17 @@ public class ImagenExpActivity extends AppCompatActivity {
             idFotoText.setText(imagen.getIdImagen());
             nombreFotoText.setText(imagen.getNombre());
 
-            byte[] imageBytes = Base64.decode(imagen.getBase64(), Base64.DEFAULT);
-            Bitmap decodedImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
-            baseImagen.setImageBitmap(decodedImage);
+            decodeBase64();
 
         } catch (JSONException e) {
             e.printStackTrace();
             Log.d("TAG-leerJson()_ERROR", "Error de lectura Json.");
         }
+    }
+
+    public void decodeBase64() {
+        byte[] imageBytes = Base64.decode(imagen.getBase64(), Base64.DEFAULT);
+        Bitmap decodedImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+        baseImagen.setImageBitmap(decodedImage);
     }
 }

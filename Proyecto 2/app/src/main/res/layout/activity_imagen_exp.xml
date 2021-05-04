@@ -59,38 +59,38 @@
 
     <TextView
         android:id="@+id/idfoto"
-        android:layout_width="183dp"
-        android:layout_height="47dp"
-        android:layout_marginTop="76dp"
+        android:layout_width="180dp"
+        android:layout_height="26dp"
+        android:layout_marginTop="28dp"
         android:text="Obteniendo ID de imagen..."
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.508"
+        app:layout_constraintHorizontal_bias="0.51"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolBarImagenExp"
         tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/nombrefoto"
-        android:layout_width="188dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="52dp"
+        android:layout_width="180dp"
+        android:layout_height="29dp"
+        android:layout_marginTop="8dp"
         android:text="Obteniendo nombre..."
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.511"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/idfoto"
         tools:ignore="MissingConstraints" />
 
-    <TextView
-        android:id="@+id/imagenBase64"
-        android:layout_width="188dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="40dp"
-        android:text="Obteniendo texto Base64..."
+    <ImageView
+        android:id="@+id/imageExp"
+        android:layout_width="299dp"
+        android:layout_height="299dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/gradienteFirma"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nombrefoto"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/logod" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

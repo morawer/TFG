@@ -6,10 +6,14 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,7 +28,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,7 +42,7 @@ public class ImagenExpActivity extends AppCompatActivity {
     int statusCode = 0;
     TextView idFotoText;
     TextView nombreFotoText;
-    TextView baseImagen;
+    ImageView baseImagen;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -85,7 +88,7 @@ public class ImagenExpActivity extends AppCompatActivity {
 
         idFotoText = (TextView) findViewById(R.id.idfoto);
         nombreFotoText = (TextView) findViewById(R.id.nombrefoto);
-        baseImagen = (TextView) findViewById(R.id.imagenBase64);
+        baseImagen = (ImageView) findViewById(R.id.imageExp);
 
         postMethod();
     }
@@ -169,8 +172,10 @@ public class ImagenExpActivity extends AppCompatActivity {
 
             idFotoText.setText(imagen.getIdImagen());
             nombreFotoText.setText(imagen.getNombre());
-            String baseImg = imagen.getBase64();
-            baseImagen.setText(baseImg.substring(0,15) + "...");
+
+            byte[] imageBytes = Base64.decode(imagen.getBase64(), Base64.DEFAULT);
+            Bitmap decodedImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+            baseImagen.setImageBitmap(decodedImage);
 
         } catch (JSONException e) {
             e.printStackTrace();

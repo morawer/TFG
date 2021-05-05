@@ -86,9 +86,11 @@ public class ImagenExpActivity extends AppCompatActivity {
         imagen.setApiKeyUser(apiKeyUser);
         imagen.setIdImagen(idImagen);
 
+      /*
         idFotoText = (TextView) findViewById(R.id.idfoto);
         nombreFotoText = (TextView) findViewById(R.id.nombrefoto);
-        baseImagen = (ImageView) findViewById(R.id.imageExp);
+        baseImagen = (ImageView) findViewById(R.id.imageExp);sssssssssssss
+       */
 
         postMethod();
     }

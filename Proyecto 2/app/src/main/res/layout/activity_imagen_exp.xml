@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:background="@color/white"
     tools:context=".ImagenExpActivity">
 
@@ -20,36 +21,42 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:src="@drawable/dvuelta" />
 
     </androidx.appcompat.widget.Toolbar>
 
+    <TextView
+        android:id="@+id/numExpImg"
+        android:textSize="16sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolBarImagenExp"
+        android:text="Expediente:"
+        android:textColor="#013171"
+        android:layout_margin="5dp"
+        />
+
+    <include layout="@layout/item_img_expediente"/>
+
     <ImageView
         android:id="@+id/gradienteFirma"
         android:layout_width="match_parent"
-        android:layout_height="231dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:srcCompat="@drawable/background_dvuelta" />
-
-
-    <TextView
-        android:id="@+id/firma"
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:layout_marginBottom="4dp"
-        android:text="@string/firma_DVuelta"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_height="224dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="0dp"
+        app:srcCompat="@drawable/background_dvuelta"
+        tools:ignore="MissingConstraints"></ImageView>
 
     <ImageView
         android:id="@+id/logoReacciona"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="98dp"
+        android:layout_marginEnd="96dp"
         android:layout_marginBottom="24dp"
         app:layout_constraintBottom_toBottomOf="@+id/gradienteFirma"
         app:layout_constraintEnd_toEndOf="parent"
@@ -58,39 +65,17 @@
         tools:ignore="MissingConstraints" />
 
     <TextView
-        android:id="@+id/idfoto"
-        android:layout_width="180dp"
-        android:layout_height="26dp"
-        android:layout_marginTop="28dp"
-        android:text="Obteniendo ID de imagen..."
+        android:id="@+id/firma"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="0dp"
+        android:text="@string/firma_DVuelta"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.51"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolBarImagenExp"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/nombrefoto"
-        android:layout_width="180dp"
-        android:layout_height="29dp"
-        android:layout_marginTop="8dp"
-        android:text="Obteniendo nombre..."
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.511"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idfoto"
-        tools:ignore="MissingConstraints" />
-
-    <ImageView
-        android:id="@+id/imageExp"
-        android:layout_width="299dp"
-        android:layout_height="299dp"
-        android:layout_marginTop="32dp"
-        app:layout_constraintBottom_toTopOf="@+id/gradienteFirma"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nombrefoto"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/logod" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

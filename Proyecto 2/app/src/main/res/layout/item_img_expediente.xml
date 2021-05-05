@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="6dp"
+    android:padding="6dp"
+    android:layout_below="@+id/numExpImg"
+    android:background="#013171">
+
+
+    <TextView
+        android:id="@+id/nomOrgExp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nombre de Organismo: xxxxXXxxxxXx XXXX xXXxx xxx "
+        android:textColor="@color/white"/>
+    <TextView
+        android:id="@+id/hechoExp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Hecho denunciado: xxxxxx xxxxxxx"
+        android:layout_below="@id/nomOrgExp"
+        android:textColor="@color/white"/>
+    <TextView
+        android:id="@+id/matriculaExp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Matrícula: XXXX - XXX "
+        android:layout_below="@id/hechoExp"
+        android:textColor="@color/white"/>
+    <TextView
+        android:id="@+id/puntosExp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Retirada de puntos: X pts."
+        android:layout_below="@id/matriculaExp"
+        android:textColor="@color/white"/>
+    <TextView
+        android:id="@+id/fechaExp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Fecha: xx/xx/xxxx"
+        android:layout_below="@id/puntosExp"
+        android:textColor="@color/white"/>
+    <TextView
+        android:id="@+id/expedienteEstadoExp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Estado de trámite: Xxxxxxxxxxx"
+        android:layout_below="@id/fechaExp"
+        android:textColor="@color/white"/>
+</RelativeLayout>

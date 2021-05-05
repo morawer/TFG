@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
@@ -105,6 +106,9 @@ public class ImagenExpActivity extends AppCompatActivity {
         puntosExpText.setText("Puntos: " + puntos);
         fechaExpText.setText("Fecha: " + fechaExp.substring(0, 10));
         estadoExpText.setText("Estado de trámite: " + estadoExp);
+
+        Typeface typeface = getResources().getFont(R.font.hindmedium);
+        numExpText.setTypeface(typeface);
         numExpText.setText("Expediente: " + numExp);
 
         postMethod();

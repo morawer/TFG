@@ -4,19 +4,19 @@
     android:layout_height="wrap_content"
     android:layout_margin="6dp"
     android:padding="6dp"
-    android:background="#99CFE5F7"
+    android:background="#013171"
     >
 
     <TextView
         android:id="@+id/expedienteId"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Nº exp: xxxx" />
 
     <TextView
         android:id="@+id/expedienteFecha"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Fecha: xx/xx/xxxx"
@@ -25,7 +25,7 @@
 
     <TextView
         android:id="@+id/expedienteEstado"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/expedienteImporte"
@@ -35,7 +35,7 @@
 
     <TextView
         android:id="@+id/expedienteImporte"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignStart="@id/expedienteFecha"

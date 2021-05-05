@@ -21,7 +21,6 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:src="@drawable/dvuelta" />
 
     </androidx.appcompat.widget.Toolbar>
@@ -31,10 +30,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/nombreExp"
-        android:layout_marginTop="0dp"
+        android:layout_margin="10dp"
         android:alpha="99"
-        android:divider="@color/black"
-        android:dividerHeight="3dp"
+        android:divider="@color/white"
+        android:dividerHeight="5dp"
         android:drawSelectorOnTop="true"
         android:footerDividersEnabled="false">
     </ListView>

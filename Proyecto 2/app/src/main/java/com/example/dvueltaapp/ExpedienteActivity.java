@@ -145,9 +145,24 @@ public class ExpedienteActivity extends AppCompatActivity {
 
                     String idImagen = cliente.getExpediente().get(position).getIdImagen();
                     String apiKeyUser = cliente.getApiKey();
+                    String nomOrg = cliente.getExpediente().get(position).getNomOrg();
+                    String hechoDenunciado = cliente.getExpediente().get(position).getHechoDenunciado();
+                    String matricula = cliente.getExpediente().get(position).getMatricula();
+                    String puntos = cliente.getExpediente().get(position).getPuntos();
+                    String fecha = cliente.getExpediente().get(position).getFechaExp();
+                    String estado = cliente.getExpediente().get(position).getEstadoExp();
+                    String numExp = cliente.getExpediente().get(position).getNroExp();
+
                     Intent intent = new Intent (ExpedienteActivity.this, ImagenExpActivity.class);
                     intent.putExtra("apiKeyUser", apiKeyUser);
                     intent.putExtra("idImagen", idImagen);
+                    intent.putExtra("nombreOrg", nomOrg);
+                    intent.putExtra("hechoDenunciado", hechoDenunciado);
+                    intent.putExtra("matricula", matricula);
+                    intent.putExtra("puntos", puntos);
+                    intent.putExtra("fecha", fecha);
+                    intent.putExtra("estado", estado);
+                    intent.putExtra("numExp", numExp);
                     startActivity(intent);
                 }
             });

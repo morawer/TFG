@@ -36,12 +36,10 @@ public class ImagenExpActivity extends AppCompatActivity {
     private final String APIKEY_ACCESS = "2c94243c0c0dc4452db4efd257d34d2f";
     private final String URL = "http://preskynet.dvuelta.es/api10getexpedientsimage";
 
-    String apiKeyUser;
-    String idImagen;
+    String apiKeyUser, idImagen, nomOrg, hechoDenunciado, matricula, puntos, fechaExp, estadoExp, numExp;
     Imagen imagen;
     int statusCode = 0;
-    TextView idFotoText;
-    TextView nombreFotoText;
+    TextView nomOrgExpText, hechoExpText, matriculaExpText, puntosExpText, fechaExpText, estadoExpText, numExpText;
     ImageView baseImagen;
 
     @Override
@@ -74,7 +72,7 @@ public class ImagenExpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_imagen_exp);
 
-        Toolbar toolBarImagenExp= (Toolbar) findViewById(R.id.toolBarImagenExp);
+        Toolbar toolBarImagenExp = (Toolbar) findViewById(R.id.toolBarImagenExp);
         setSupportActionBar(toolBarImagenExp);
 
         imagen = new Imagen();
@@ -82,15 +80,32 @@ public class ImagenExpActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         apiKeyUser = (String) extras.getString("apiKeyUser");
         idImagen = (String) extras.getString("idImagen");
+        nomOrg = (String) extras.getString("nombreOrg");
+        hechoDenunciado = (String) extras.getString("hechoDenunciado");
+        matricula = (String) extras.getString("matricula");
+        puntos = (String) extras.getString("puntos");
+        fechaExp = (String) extras.getString("fecha");
+        estadoExp  = (String) extras.getString("estado");
+        numExp = (String) extras.getString("numExp");
 
         imagen.setApiKeyUser(apiKeyUser);
         imagen.setIdImagen(idImagen);
 
-      /*
-        idFotoText = (TextView) findViewById(R.id.idfoto);
-        nombreFotoText = (TextView) findViewById(R.id.nombrefoto);
-        baseImagen = (ImageView) findViewById(R.id.imageExp);sssssssssssss
-       */
+        nomOrgExpText = (TextView)findViewById(R.id.nomOrgExp);
+        hechoExpText = (TextView)findViewById(R.id.hechoExp);
+        matriculaExpText = (TextView)findViewById(R.id.matriculaExp);
+        puntosExpText = (TextView)findViewById(R.id.puntosExp);
+        fechaExpText = (TextView)findViewById(R.id.fechaExp);
+        estadoExpText = (TextView)findViewById(R.id.expedienteEstadoExp);
+        numExpText = (TextView)findViewById(R.id.numExpImg);
+
+        nomOrgExpText.setText("Lugar: " + nomOrg);
+        hechoExpText.setText("Denuncia: " + hechoDenunciado);
+        matriculaExpText.setText("Matrícula: " + matricula);
+        puntosExpText.setText("Puntos: " + puntos);
+        fechaExpText.setText("Fecha: " + fechaExp.substring(0, 10));
+        estadoExpText.setText("Estado de trámite: " + estadoExp);
+        numExpText.setText("Expediente: " + numExp);
 
         postMethod();
     }
@@ -172,10 +187,7 @@ public class ImagenExpActivity extends AppCompatActivity {
             }
             Log.d("TAG-leerJson()", "Lectura correcta Json.");
 
-            idFotoText.setText(imagen.getIdImagen());
-            nombreFotoText.setText(imagen.getNombre());
-
-            decodeBase64();
+            //decodeBase64();
 
         } catch (JSONException e) {
             e.printStackTrace();

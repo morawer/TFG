@@ -134,7 +134,7 @@ public class ExpedienteActivity extends AppCompatActivity {
             listViewExpedientes.setAdapter(itemsExpediente);
 
             Calendar c = Calendar.getInstance();
-            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
             fecha = (TextView)findViewById(R.id.actualizacion);
             String formattedDate = df.format(c.getTime());
             fecha.setText("Ultima actualización: " + formattedDate);

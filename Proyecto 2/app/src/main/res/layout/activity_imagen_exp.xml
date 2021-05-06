@@ -40,7 +40,7 @@
 
     <GridView
         android:id="@+id/gridImg"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/item_exp_imagenes"
         android:columnWidth="120dp"
@@ -48,7 +48,7 @@
         android:verticalSpacing="5dp"
         android:numColumns="auto_fit"
         android:padding="10dp"
-        android:layout_centerInParent="true"
+
         />
 
     <ImageView

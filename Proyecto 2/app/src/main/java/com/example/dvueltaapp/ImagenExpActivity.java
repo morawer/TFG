@@ -210,8 +210,6 @@ public class ImagenExpActivity extends AppCompatActivity {
             System.out.println("El tamaño del array es de: " + imagenesBase64ArrayList.size());
             Log.d("TAG-leerJson()", "Lectura correcta Json.");
 
-            //decodeBase64();
-
             gridViewImagenes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -223,11 +221,5 @@ public class ImagenExpActivity extends AppCompatActivity {
             e.printStackTrace();
             Log.d("TAG-leerJson()_ERROR", "Error de lectura Json.");
         }
-    }
-
-    public void decodeBase64() {
-        byte[] imageBytes = Base64.decode(imagenesBase64.getBase64(), Base64.DEFAULT);
-        Bitmap decodedImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
-        baseImagen.setImageBitmap(decodedImage);
     }
 }

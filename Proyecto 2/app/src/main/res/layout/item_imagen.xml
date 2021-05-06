@@ -5,12 +5,12 @@
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
     android:padding="6dp"
-    android:layout_below="@+id/numExpImg"
+    android:layout_below="@+id/item_exp_imagenes"
     android:background="#013171">
 
 <ImageView
     android:id="@+id/imagenItem"
     android:src="@mipmap/ic_launcher_round"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"/>
+    android:layout_width="100dp"
+    android:layout_height="100dp"/>
 </RelativeLayout>

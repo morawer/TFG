@@ -14,6 +14,9 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +32,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,10 +42,13 @@ public class ImagenExpActivity extends AppCompatActivity {
     private final String URL = "http://preskynet.dvuelta.es/api10getexpedientsimage";
 
     String apiKeyUser, idImagen, nomOrg, hechoDenunciado, matricula, puntos, fechaExp, estadoExp, numExp;
-    Imagen imagen;
+    Imagenes imagenes;
+    ArrayList<ImagenesBase64> imagenesBase64ArrayList;
+    ImagenesBase64 imagenesBase64;
     int statusCode = 0;
     TextView nomOrgExpText, hechoExpText, matriculaExpText, puntosExpText, fechaExpText, estadoExpText, numExpText;
     ImageView baseImagen;
+    GridView gridViewImagenes;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -76,7 +83,7 @@ public class ImagenExpActivity extends AppCompatActivity {
         Toolbar toolBarImagenExp = (Toolbar) findViewById(R.id.toolBarImagenExp);
         setSupportActionBar(toolBarImagenExp);
 
-        imagen = new Imagen();
+        imagenes = new Imagenes();
 
         Bundle extras = getIntent().getExtras();
         apiKeyUser = (String) extras.getString("apiKeyUser");
@@ -89,8 +96,8 @@ public class ImagenExpActivity extends AppCompatActivity {
         estadoExp  = (String) extras.getString("estado");
         numExp = (String) extras.getString("numExp");
 
-        imagen.setApiKeyUser(apiKeyUser);
-        imagen.setIdImagen(idImagen);
+        imagenes.setApiKeyUser(apiKeyUser);
+        imagenes.setIdImagen(idImagen);
 
         nomOrgExpText = (TextView)findViewById(R.id.nomOrgExp);
         hechoExpText = (TextView)findViewById(R.id.hechoExp);
@@ -183,15 +190,34 @@ public class ImagenExpActivity extends AppCompatActivity {
         try {
             JSONObject jsonObject = new JSONObject(clienteJson);
             JSONArray jsonArray = jsonObject.getJSONArray("msg");
+            imagenesBase64ArrayList = new ArrayList<>();
+
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject json = jsonArray.getJSONObject(i);
+                imagenesBase64 = new ImagenesBase64();
 
-                imagen.setNombre(json.getString("Name"));
-                imagen.setBase64(json.getString("Image"));
+                imagenesBase64.setNombre(json.getString("Name"));
+                imagenesBase64.setBase64(json.getString("Image"));
+
+                imagenesBase64ArrayList.add(imagenesBase64);
             }
+            imagenes.setImagenesBase64(imagenesBase64ArrayList);
+
+            ImagenExpAdapter itemsImagenesBase64 = new ImagenExpAdapter(ImagenExpActivity.this, imagenesBase64ArrayList);
+            gridViewImagenes = (GridView)findViewById(R.id.gridImg);
+            gridViewImagenes.setAdapter(itemsImagenesBase64);
+
+            System.out.println("El tamaño del array es de: " + imagenesBase64ArrayList.size());
             Log.d("TAG-leerJson()", "Lectura correcta Json.");
 
             //decodeBase64();
+
+            gridViewImagenes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Toast.makeText(ImagenExpActivity.this, imagenesBase64ArrayList.get(position).getNombre(), Toast.LENGTH_SHORT).show();
+                }
+            });
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -200,7 +226,7 @@ public class ImagenExpActivity extends AppCompatActivity {
     }
 
     public void decodeBase64() {
-        byte[] imageBytes = Base64.decode(imagen.getBase64(), Base64.DEFAULT);
+        byte[] imageBytes = Base64.decode(imagenesBase64.getBase64(), Base64.DEFAULT);
         Bitmap decodedImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
         baseImagen.setImageBitmap(decodedImage);
     }

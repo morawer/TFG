@@ -1,13 +1,14 @@
 package com.example.dvueltaapp;
 
-public class Imagen {
+import java.util.ArrayList;
+
+public class Imagenes {
 
     private String apiKeyUser;
     private String idImagen;
-    private String nombre;
-    private String base64;
+    private ArrayList<ImagenesBase64> imagenesBase64;
 
-    public Imagen() {
+    public Imagenes() {
     }
 
     public String getApiKeyUser() {
@@ -26,19 +27,11 @@ public class Imagen {
         this.idImagen = idImagen;
     }
 
-    public String getNombre() {
-        return nombre;
+    public ArrayList<ImagenesBase64> getImagenesBase64() {
+        return imagenesBase64;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getBase64() {
-        return base64;
-    }
-
-    public void setBase64(String base64) {
-        this.base64 = base64;
+    public void setImagenesBase64(ArrayList<ImagenesBase64> imagenesBase64) {
+        this.imagenesBase64 = imagenesBase64;
     }
 }

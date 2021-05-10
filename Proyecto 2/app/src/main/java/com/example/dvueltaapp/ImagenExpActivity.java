@@ -10,12 +10,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -27,12 +26,21 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.pdf.PdfWriter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,12 +49,15 @@ public class ImagenExpActivity extends AppCompatActivity {
     private final String APIKEY_ACCESS = "2c94243c0c0dc4452db4efd257d34d2f";
     private final String URL = "http://preskynet.dvuelta.es/api10getexpedientsimage";
 
+    private final static String NOMBRE_DIRECTORIO = "DVuelta";
+
     String apiKeyUser, idImagen, nomOrg, hechoDenunciado, matricula, puntos, fechaExp, estadoExp, numExp;
     Imagenes imagenes;
     ArrayList<ImagenesBase64> imagenesBase64ArrayList;
     ImagenesBase64 imagenesBase64;
     int statusCode = 0;
     TextView nomOrgExpText, hechoExpText, matriculaExpText, puntosExpText, fechaExpText, estadoExpText, numExpText;
+    ImageView imgDecode = null;
     ImageView baseImagen;
     GridView gridViewImagenes;
 
@@ -135,6 +146,7 @@ public class ImagenExpActivity extends AppCompatActivity {
                         startActivity(intent);
                     } else {
                         leerJson(response);
+                        generarPdf(imagenes);
                     }
                 }
             }
@@ -186,7 +198,6 @@ public class ImagenExpActivity extends AppCompatActivity {
     }
 
     public void leerJson(String clienteJson) {
-
         try {
             JSONObject jsonObject = new JSONObject(clienteJson);
             JSONArray jsonArray = jsonObject.getJSONArray("msg");
@@ -194,8 +205,8 @@ public class ImagenExpActivity extends AppCompatActivity {
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject json = jsonArray.getJSONObject(i);
-                imagenesBase64 = new ImagenesBase64();
 
+                imagenesBase64 = new ImagenesBase64();
                 imagenesBase64.setNombre(json.getString("Name"));
                 imagenesBase64.setBase64(json.getString("Image"));
 
@@ -203,23 +214,74 @@ public class ImagenExpActivity extends AppCompatActivity {
             }
             imagenes.setImagenesBase64(imagenesBase64ArrayList);
 
-            ImagenExpAdapter itemsImagenesBase64 = new ImagenExpAdapter(ImagenExpActivity.this, imagenesBase64ArrayList);
-            gridViewImagenes = (GridView)findViewById(R.id.gridImg);
-            gridViewImagenes.setAdapter(itemsImagenesBase64);
-
-            System.out.println("El tamaño del array es de: " + imagenesBase64ArrayList.size());
             Log.d("TAG-leerJson()", "Lectura correcta Json.");
-
-            gridViewImagenes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Toast.makeText(ImagenExpActivity.this, imagenesBase64ArrayList.get(position).getNombre(), Toast.LENGTH_SHORT).show();
-                }
-            });
 
         } catch (JSONException e) {
             e.printStackTrace();
             Log.d("TAG-leerJson()_ERROR", "Error de lectura Json.");
+        }    }
+
+    public void generarPdf(Imagenes imagen){
+
+        Document documento = new Document();
+
+        try {
+            Calendar c = Calendar.getInstance();
+            SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+            String fecha = df.format(c.getTime());
+
+            File f = crearFichero(fecha);
+
+            FileOutputStream ficheroPdf = new FileOutputStream(f.getAbsolutePath());
+
+            PdfWriter writer = PdfWriter.getInstance(documento, ficheroPdf);
+
+            for (int i = 0; i < imagen.getImagenesBase64().size(); i++) {
+                documento.add((Element) decodeImage(imagen.getImagenesBase64().get(i).getBase64()));
+
+
+            }
+
+
+        } catch (DocumentException e) {
+            Log.e("ERROR-- generarPdf()", e.getMessage());
+        } catch (IOException e) {
+            Log.e("ERROR-- generarPdf()", e.getMessage());
+        } finally {
+            documento.close();
         }
+    }
+
+    public static File crearFichero(String nombreFichero) throws IOException {
+
+        File ruta = getRuta();
+        File fichero = null;
+        if (ruta != null)
+            fichero = new File (ruta, nombreFichero);
+        return fichero;
+    }
+
+    public static File getRuta() {
+        File ruta = null;
+        if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())){
+            ruta = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), NOMBRE_DIRECTORIO);
+
+            if (ruta != null) {
+                if(!ruta.mkdirs()) {
+                    if(!ruta.exists()) {
+                        return null;
+                    }
+                }
+            }
+        } else {
+        }
+        return ruta;
+    }
+
+    public ImageView decodeImage(String base64){
+        byte[] imageBytes = Base64.decode(base64, Base64.DEFAULT);
+        Bitmap decodedImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+        imgDecode.setImageBitmap(decodedImage);
+        return imgDecode;
     }
 }

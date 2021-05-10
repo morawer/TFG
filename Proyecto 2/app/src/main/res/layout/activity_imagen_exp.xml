@@ -43,13 +43,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/item_exp_imagenes"
+        android:layout_centerVertical="true"
         android:columnWidth="120dp"
         android:horizontalSpacing="5dp"
-        android:verticalSpacing="5dp"
         android:numColumns="auto_fit"
         android:padding="10dp"
 
-        />
+        android:verticalSpacing="5dp" />
 
     <ImageView
         android:id="@+id/gradienteFirma"

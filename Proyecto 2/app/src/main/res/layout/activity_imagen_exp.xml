@@ -38,18 +38,21 @@
 
     <include layout="@layout/item_img_expediente"/>
 
-    <GridView
-        android:id="@+id/gridImg"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/item_exp_imagenes"
-        android:layout_centerVertical="true"
-        android:columnWidth="120dp"
-        android:horizontalSpacing="5dp"
-        android:numColumns="auto_fit"
-        android:padding="10dp"
-
-        android:verticalSpacing="5dp" />
+    <Button
+        android:id="@+id/botonPDF"
+        android:layout_width="280dp"
+        android:layout_height="42dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="379dp"
+        android:layout_marginEnd="67dp"
+        android:layout_marginBottom="309dp"
+        android:background="@drawable/boton_redondo"
+        android:text="Descargar PDF"
+        android:textColor="@color/white" />
 
     <ImageView
         android:id="@+id/gradienteFirma"

@@ -157,6 +157,7 @@ public class ImagenExpActivity extends AppCompatActivity {
                         startActivity(intent);
                     } else {
                         leerJson(response);
+                        descargarPDF.setEnabled(true);
                     }
                 }
             }

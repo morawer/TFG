@@ -52,6 +52,7 @@
         android:layout_marginBottom="309dp"
         android:background="@drawable/boton_redondo"
         android:text="Descargar PDF"
+        android:clickable="false"
         android:textColor="@color/white" />
 
     <ImageView

@@ -237,16 +237,22 @@ public class ImagenExpActivity extends AppCompatActivity {
         ActivityCompat.requestPermissions(ImagenExpActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, PackageManager.PERMISSION_GRANTED);
 
         PdfDocument myPdfDocument = new PdfDocument();
-        PdfDocument.PageInfo myPageInfo = new PdfDocument.PageInfo.Builder(300, 600, 1).create();
-        PdfDocument.Page myPage = myPdfDocument.startPage(myPageInfo);
 
-        Paint myPaint = new Paint();
-        String myString = "Holaaaaa Danielo!!";
-        myPage.getCanvas().drawText(myString, 10, 25, myPaint);
-        myPdfDocument.finishPage(myPage);
+        for (int i = 0; i < imagenes.getImagenesBase64().size(); i++){
+
+            PdfDocument.PageInfo myPageInfo = new PdfDocument.PageInfo.Builder(300, 600, i + 1).create();
+            PdfDocument.Page myPage = myPdfDocument.startPage(myPageInfo);
+
+            Paint myPaint = new Paint();
+
+            String base64 = imagenesBase64ArrayList.get(i).getBase64();
+
+            myPage.getCanvas().drawBitmap(decodeImage(base64), 10, 25, myPaint);
+            myPdfDocument.finishPage(myPage);
+        }
 
         try {
-        File myFile = new File(Environment.getExternalStorageDirectory(), "/Download/" + numExp + ".pdf");
+            File myFile = new File(Environment.getExternalStorageDirectory(), "/Download/" + numExp + ".pdf");
             if (!myFile.exists()) {
                 myFile.createNewFile();
             }
@@ -256,15 +262,12 @@ public class ImagenExpActivity extends AppCompatActivity {
             e.printStackTrace();
             Toast.makeText(this, "ERROR!!", Toast.LENGTH_SHORT).show();
         }
-
         myPdfDocument.close();
     }
 
-
-    public ImageView decodeImage(String base64) {
+    public Bitmap decodeImage(String base64) {
         byte[] imageBytes = Base64.decode(base64, Base64.DEFAULT);
         Bitmap decodedImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
-        imgDecode.setImageBitmap(decodedImage);
-        return imgDecode;
+        return decodedImage;
     }
 }

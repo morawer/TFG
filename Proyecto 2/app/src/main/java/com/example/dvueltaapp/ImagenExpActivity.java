@@ -237,8 +237,10 @@ public class ImagenExpActivity extends AppCompatActivity {
         ActivityCompat.requestPermissions(ImagenExpActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, PackageManager.PERMISSION_GRANTED);
 
         PdfDocument myPdfDocument = new PdfDocument();
+        Log.d("CREARPDF()", "Voy a entrar al for TAMAÑO: " + imagenesBase64ArrayList.size());
+        for (int i = 0; i < imagenesBase64ArrayList.size(); i++) {
 
-        for (int i = 0; i < imagenes.getImagenesBase64().size(); i++){
+            Log.d("CREARPDF()", "entre!!!");
 
             PdfDocument.PageInfo myPageInfo = new PdfDocument.PageInfo.Builder(300, 600, i + 1).create();
             PdfDocument.Page myPage = myPdfDocument.startPage(myPageInfo);

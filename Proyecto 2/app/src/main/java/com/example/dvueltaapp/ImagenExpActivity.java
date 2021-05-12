@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.graphics.pdf.PdfDocument;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Base64;
@@ -59,6 +60,7 @@ public class ImagenExpActivity extends AppCompatActivity {
     TextView nomOrgExpText, hechoExpText, matriculaExpText, puntosExpText, fechaExpText, estadoExpText, numExpText;
     ImageView imgDecode = null;
     Button descargarPDF;
+    File myFile;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -257,7 +259,7 @@ public class ImagenExpActivity extends AppCompatActivity {
         }
 
         try {
-            File myFile = new File(Environment.getExternalStorageDirectory(), "/Download/" + numExp + ".pdf");
+            myFile = new File(Environment.getExternalStorageDirectory(), "/Download/" + numExp + ".pdf");
             if (!myFile.exists()) {
                 myFile.createNewFile();
             }
@@ -268,7 +270,7 @@ public class ImagenExpActivity extends AppCompatActivity {
             Toast.makeText(this, "ERROR!!", Toast.LENGTH_SHORT).show();
         }
         myPdfDocument.close();
-
+        viewPdf(myFile);
     }
 
     public Bitmap decodeImage(String base64) {
@@ -276,5 +278,13 @@ public class ImagenExpActivity extends AppCompatActivity {
         Bitmap decodedImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
         Bitmap resizeImage = Bitmap.createScaledBitmap(decodedImage, 500, 700, false);
         return resizeImage;
+    }
+
+    public void viewPdf(File myFile) {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        Uri path = Uri.parse(myFile.toString());
+        intent.setDataAndType(path, "application/pdf");
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 }

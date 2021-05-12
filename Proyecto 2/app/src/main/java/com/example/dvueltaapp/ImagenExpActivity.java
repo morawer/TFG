@@ -129,9 +129,9 @@ public class ImagenExpActivity extends AppCompatActivity {
         numExpText.setText("Expediente: " + numExp);
 
         descargarPDF = (Button) findViewById(R.id.botonPDF);
+        descargarPDF.setEnabled(false);
 
         postMethod();
-
 
         descargarPDF.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -157,6 +157,7 @@ public class ImagenExpActivity extends AppCompatActivity {
                         startActivity(intent);
                     } else {
                         leerJson(response);
+                        descargarPDF.setText("Descargar expediente en PDF.");
                         descargarPDF.setEnabled(true);
                     }
                 }

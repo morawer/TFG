@@ -1,6 +1,7 @@
 package com.example.dvueltaapp;
 
 import android.Manifest;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
@@ -281,10 +282,20 @@ public class ImagenExpActivity extends AppCompatActivity {
     }
 
     public void viewPdf(File myFile) {
-        Intent intent = new Intent(Intent.ACTION_VIEW);
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
         Uri path = Uri.parse(myFile.toString());
         intent.setDataAndType(path, "application/pdf");
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
+
+        Intent intentPdf = Intent.createChooser(intent, "Abrir PDF con...");
+        Log.d("pathPDF", myFile.getAbsolutePath());
+        try {
+            startActivity(intentPdf);
+        } catch (ActivityNotFoundException e) {
+            Log.d("ERROR", "NO TIENES APP PARA VER PDF");
+            Toast.makeText(this, "NO TIENES APP PARA VER PDF", Toast.LENGTH_SHORT).show();
+        }
+
     }
 }

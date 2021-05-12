@@ -158,6 +158,7 @@ public class ImagenExpActivity extends AppCompatActivity {
                     } else {
                         leerJson(response);
                         descargarPDF.setText("Descargar expediente en PDF.");
+                        descargarPDF.setBackgroundResource(R.drawable.boton_redondo);
                         descargarPDF.setEnabled(true);
                     }
                 }

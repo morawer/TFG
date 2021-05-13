@@ -248,7 +248,7 @@ public class ImagenExpActivity extends AppCompatActivity {
 
             Log.d("CREARPDF()", "entre!!!");
 
-            PdfDocument.PageInfo myPageInfo = new PdfDocument.PageInfo.Builder(600, 800, i + 1).create();
+            PdfDocument.PageInfo myPageInfo = new PdfDocument.PageInfo.Builder(800, 1200, i + 1).create();
             PdfDocument.Page myPage = myPdfDocument.startPage(myPageInfo);
 
             Paint myPaint = new Paint();
@@ -277,7 +277,7 @@ public class ImagenExpActivity extends AppCompatActivity {
     public Bitmap decodeImage(String base64) {
         byte[] imageBytes = Base64.decode(base64, Base64.DEFAULT);
         Bitmap decodedImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
-        Bitmap resizeImage = Bitmap.createScaledBitmap(decodedImage, 500, 700, false);
+        Bitmap resizeImage = Bitmap.createScaledBitmap(decodedImage, 750, 1150, true);
         return resizeImage;
     }
 

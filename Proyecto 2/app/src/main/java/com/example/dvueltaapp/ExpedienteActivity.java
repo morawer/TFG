@@ -1,29 +1,26 @@
 package com.example.dvueltaapp;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Typeface;
 import android.os.Bundle;
-
-import com.android.volley.NetworkResponse;
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
+import com.android.volley.NetworkResponse;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -56,6 +53,7 @@ public class ExpedienteActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -65,8 +63,6 @@ public class ExpedienteActivity extends AppCompatActivity {
                 startActivity(inicio);
                 break;
             case R.id.menu_envio:
-                Toast.makeText(ExpedienteActivity.this, "Sin servicio", Toast.LENGTH_SHORT).show();
-                break;
             case R.id.menu_ayuda:
                 Toast.makeText(ExpedienteActivity.this, "Sin servicio", Toast.LENGTH_SHORT).show();
                 break;
@@ -79,18 +75,19 @@ public class ExpedienteActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_expediente);
 
-        Toolbar toolBarExp= (Toolbar) findViewById(R.id.toolBarExp);
+        Toolbar toolBarExp= findViewById(R.id.toolBarExp);
         setSupportActionBar(toolBarExp);
 
         Bundle extras = getIntent().getExtras();
-        apiKeyUser = (String) extras.getString("apiKeyUser");
-        nombreUser = (String) extras.getString("nombreUser");
+        apiKeyUser = extras.getString("apiKeyUser");
+        nombreUser = extras.getString("nombreUser");
 
         cliente.setApiKey(apiKeyUser);
         cliente.setNombre(nombreUser);
@@ -98,6 +95,7 @@ public class ExpedienteActivity extends AppCompatActivity {
         postMethod();
     }
 
+    @SuppressLint("SetTextI18n")
     public void leerJson(String clienteJson) {
 
         try {
@@ -124,47 +122,44 @@ public class ExpedienteActivity extends AppCompatActivity {
             }
             cliente.setExpediente(expedienteList);
 
-            nombreExp = (TextView) findViewById(R.id.nombreExp);
+            nombreExp = findViewById(R.id.nombreExp);
             Typeface typeface = getResources().getFont(R.font.hindmedium);
             nombreExp.setTypeface(typeface);
             nombreExp.setText("Expedientes de " + cliente.getNombre());
 
             ExpedienteAdapter itemsExpediente = new ExpedienteAdapter(ExpedienteActivity.this, expedienteList);
-            listViewExpedientes = (ListView) findViewById(R.id.listaExpediente);
+            listViewExpedientes = findViewById(R.id.listaExpediente);
             listViewExpedientes.setAdapter(itemsExpediente);
 
             Calendar c = Calendar.getInstance();
-            SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-            fecha = (TextView)findViewById(R.id.actualizacion);
+            @SuppressLint("SimpleDateFormat") SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+            fecha = findViewById(R.id.actualizacion);
             String formattedDate = df.format(c.getTime());
             fecha.setText("Ultima actualización: " + formattedDate);
 
-            listViewExpedientes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            listViewExpedientes.setOnItemClickListener((parent, view, position, id) -> {
 
-                    String idImagen = cliente.getExpediente().get(position).getIdImagen();
-                    String apiKeyUser = cliente.getApiKey();
-                    String nomOrg = cliente.getExpediente().get(position).getNomOrg();
-                    String hechoDenunciado = cliente.getExpediente().get(position).getHechoDenunciado();
-                    String matricula = cliente.getExpediente().get(position).getMatricula();
-                    String puntos = cliente.getExpediente().get(position).getPuntos();
-                    String fecha = cliente.getExpediente().get(position).getFechaExp();
-                    String estado = cliente.getExpediente().get(position).getEstadoExp();
-                    String numExp = cliente.getExpediente().get(position).getNroExp();
+                String idImagen = cliente.getExpediente().get(position).getIdImagen();
+                String apiKeyUser = cliente.getApiKey();
+                String nomOrg = cliente.getExpediente().get(position).getNomOrg();
+                String hechoDenunciado = cliente.getExpediente().get(position).getHechoDenunciado();
+                String matricula = cliente.getExpediente().get(position).getMatricula();
+                String puntos = cliente.getExpediente().get(position).getPuntos();
+                String fecha = cliente.getExpediente().get(position).getFechaExp();
+                String estado = cliente.getExpediente().get(position).getEstadoExp();
+                String numExp = cliente.getExpediente().get(position).getNroExp();
 
-                    Intent intent = new Intent (ExpedienteActivity.this, ImagenExpActivity.class);
-                    intent.putExtra("apiKeyUser", apiKeyUser);
-                    intent.putExtra("idImagen", idImagen);
-                    intent.putExtra("nombreOrg", nomOrg);
-                    intent.putExtra("hechoDenunciado", hechoDenunciado);
-                    intent.putExtra("matricula", matricula);
-                    intent.putExtra("puntos", puntos);
-                    intent.putExtra("fecha", fecha);
-                    intent.putExtra("estado", estado);
-                    intent.putExtra("numExp", numExp);
-                    startActivity(intent);
-                }
+                Intent intent = new Intent (ExpedienteActivity.this, ImagenExpActivity.class);
+                intent.putExtra("apiKeyUser", apiKeyUser);
+                intent.putExtra("idImagen", idImagen);
+                intent.putExtra("nombreOrg", nomOrg);
+                intent.putExtra("hechoDenunciado", hechoDenunciado);
+                intent.putExtra("matricula", matricula);
+                intent.putExtra("puntos", puntos);
+                intent.putExtra("fecha", fecha);
+                intent.putExtra("estado", estado);
+                intent.putExtra("numExp", numExp);
+                startActivity(intent);
             });
 
             System.out.println(cliente);
@@ -177,30 +172,24 @@ public class ExpedienteActivity extends AppCompatActivity {
     }
 
     public void postMethod() {
-        StringRequest postRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                System.out.println(response);
-                Log.d("LOG_onResponse: ", String.valueOf(statusCode));
+        StringRequest postRequest = new StringRequest(Request.Method.POST, URL, response -> {
+            System.out.println(response);
+            Log.d("LOG_onResponse: ", String.valueOf(statusCode));
 
-                if (statusCode == 200) {
-                    if (errorExpedientes(response)) {
-                        Toast.makeText(ExpedienteActivity.this, "Problema al obtener los expedientes", Toast.LENGTH_SHORT).show();
-                        intent = new Intent(ExpedienteActivity.this, WelcomeActivity.class);
-                        startActivity(intent);
-                    } else {
-                        leerJson(response);
-                    }
+            if (statusCode == 200) {
+                if (errorExpedientes(response)) {
+                    Toast.makeText(ExpedienteActivity.this, "Problema al obtener los expedientes", Toast.LENGTH_SHORT).show();
+                    intent = new Intent(ExpedienteActivity.this, WelcomeActivity.class);
+                    startActivity(intent);
+                } else {
+                    leerJson(response);
                 }
             }
         },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        error.printStackTrace();
-                        Toast.makeText(ExpedienteActivity.this, "Fallo en servidor", Toast.LENGTH_SHORT).show();
-                        Log.d("LOG_onErrorResponse: ", "Fallo en servidor: " + String.valueOf(statusCode));
-                    }
+                error -> {
+                    error.printStackTrace();
+                    Toast.makeText(ExpedienteActivity.this, "Fallo en servidor", Toast.LENGTH_SHORT).show();
+                    Log.d("LOG_onErrorResponse: ", "Fallo en servidor: " + statusCode);
                 }
         ) {
             @Override
@@ -222,9 +211,9 @@ public class ExpedienteActivity extends AppCompatActivity {
     //Metodo que comprueba que el login con el servidor es correcto.
     public boolean errorExpedientes(String response) {
         try {
-            JSONObject jsonObj = null;
-            String error = "";
-            String errorMsg = "";
+            JSONObject jsonObj;
+            String error;
+            String errorMsg;
             jsonObj = new JSONObject(response);
             error = jsonObj.getString("status");
             errorMsg = jsonObj.getString("msg");
@@ -238,5 +227,4 @@ public class ExpedienteActivity extends AppCompatActivity {
         }
         return false;
     }
-
 }

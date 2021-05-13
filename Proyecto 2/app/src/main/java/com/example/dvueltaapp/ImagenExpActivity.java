@@ -18,7 +18,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -62,6 +64,7 @@ public class ImagenExpActivity extends AppCompatActivity {
     ImageView imgDecode = null;
     Button descargarPDF;
     File myFile;
+    GridView gridViewImagenes;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -230,7 +233,19 @@ public class ImagenExpActivity extends AppCompatActivity {
             }
             imagenes.setImagenesBase64(imagenesBase64ArrayList);
 
+            ImagenExpAdapter itemsImagenesBase64 = new ImagenExpAdapter(ImagenExpActivity.this, imagenesBase64ArrayList);
+            gridViewImagenes = (GridView)findViewById(R.id.gridImg);
+            gridViewImagenes.setAdapter(itemsImagenesBase64);
+
+            System.out.println("El tamaño del array es de: " + imagenesBase64ArrayList.size());
             Log.d("TAG-leerJson()", "Lectura correcta Json.");
+
+            gridViewImagenes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Toast.makeText(ImagenExpActivity.this, imagenesBase64ArrayList.get(position).getNombre(), Toast.LENGTH_SHORT).show();
+                }
+            });
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -296,6 +311,5 @@ public class ImagenExpActivity extends AppCompatActivity {
             Log.d("ERROR", "NO TIENES APP PARA VER PDF");
             Toast.makeText(this, "NO TIENES APP PARA VER PDF", Toast.LENGTH_SHORT).show();
         }
-
     }
 }

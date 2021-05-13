@@ -38,38 +38,32 @@
 
     <include layout="@layout/item_img_expediente"/>
 
-    <TextView
-        android:layout_width="match_parent"
+    <GridView
+        android:id="@+id/gridImg"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/item_exp_imagenes"
-        android:text="AQUI DEBAJO HAY UN BOTÓN!!!"
-        android:layout_marginTop="30dp"
-        android:gravity="center"
-        />
-
+        android:layout_centerVertical="true"
+        android:columnWidth="75dp"
+        android:horizontalSpacing="3dp"
+        android:numColumns="auto_fit"
+        android:padding="10dp"
+    />
 
     <Button
         android:id="@+id/botonPDF"
-        android:layout_width="match_parent"
+        android:layout_width="280dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/item_exp_imagenes"
+        android:layout_below="@id/gridImg"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="100dp"
-
+        android:layout_marginStart="65dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="66dp"
         android:background="@drawable/boton_redondo_gris"
+        android:gravity="center"
         android:text="Creando expediente en PDF..."
         android:textColor="@color/white" />
-
-    <ImageView
-        android:id="@+id/gradienteFirma"
-        android:layout_width="match_parent"
-        android:layout_height="224dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="0dp"
-        android:layout_marginBottom="0dp"
-        app:srcCompat="@drawable/background_dvuelta"
-        tools:ignore="MissingConstraints"></ImageView>
 
     <ImageView
         android:id="@+id/logoReacciona"
@@ -100,5 +94,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/gradienteFirma"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="507dp"
+        app:srcCompat="@drawable/background_dvuelta"
+        />
 
 </RelativeLayout>

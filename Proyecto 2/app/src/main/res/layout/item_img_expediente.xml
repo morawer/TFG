@@ -13,41 +13,41 @@
         android:id="@+id/nomOrgExp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Nombre de Organismo: xxxxXXxxxxXx XXXX xXXxx xxx "
+        android:text="@string/nombre_de_organismo_xxxxxxxxxxxx_xxxx_xxxxx_xxx"
         android:textColor="@color/white"/>
     <TextView
         android:id="@+id/hechoExp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hecho denunciado: xxxxxx xxxxxxx"
+        android:text="@string/hecho_denunciado_xxxxxx_xxxxxxx"
         android:layout_below="@id/nomOrgExp"
         android:textColor="@color/white"/>
     <TextView
         android:id="@+id/matriculaExp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Matrícula: XXXX - XXX "
+        android:text="@string/matr_cula_xxxx_xxx"
         android:layout_below="@id/hechoExp"
         android:textColor="@color/white"/>
     <TextView
         android:id="@+id/puntosExp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Retirada de puntos: X pts."
+        android:text="@string/retirada_de_puntos_x_pts"
         android:layout_below="@id/matriculaExp"
         android:textColor="@color/white"/>
     <TextView
         android:id="@+id/fechaExp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Fecha: xx/xx/xxxx"
+        android:text="@string/fecha_xx_xx_xxxx"
         android:layout_below="@id/puntosExp"
         android:textColor="@color/white"/>
     <TextView
         android:id="@+id/expedienteEstadoExp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Estado de trámite: Xxxxxxxxxxx"
+        android:text="@string/estado_de_tr_mite_xxxxxxxxxxx"
         android:layout_below="@id/fechaExp"
         android:textColor="@color/white"/>
 </RelativeLayout>

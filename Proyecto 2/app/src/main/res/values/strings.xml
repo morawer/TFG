@@ -97,4 +97,10 @@
     </string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_expediente">Expedientes</string>
+    <string name="nombre_de_organismo_xxxxxxxxxxxx_xxxx_xxxxx_xxx">Nombre de Organismo: xxxxXXxxxxXx XXXX xXXxx xxx</string>
+    <string name="hecho_denunciado_xxxxxx_xxxxxxx">Hecho denunciado: xxxxxx xxxxxxx</string>
+    <string name="matr_cula_xxxx_xxx">Matrícula: XXXX - XXX</string>
+    <string name="retirada_de_puntos_x_pts">Retirada de puntos: X pts.</string>
+    <string name="fecha_xx_xx_xxxx">Fecha: xx/xx/xxxx</string>
+    <string name="estado_de_tr_mite_xxxxxxxxxxx">Estado de trámite: Xxxxxxxxxxx</string>
 </resources>

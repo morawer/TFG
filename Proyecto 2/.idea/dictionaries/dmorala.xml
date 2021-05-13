@@ -10,6 +10,7 @@
       <w>conexion</w>
       <w>correcta</w>
       <w>correcto</w>
+      <w>cula</w>
       <w>denunciado</w>
       <w>estado</w>
       <w>expediente</w>
@@ -19,11 +20,13 @@
       <w>firma</w>
       <w>hecho</w>
       <w>imagen</w>
+      <w>imagenes</w>
       <w>importe</w>
       <w>infraccion</w>
       <w>inicio</w>
       <w>lectura</w>
       <w>logoreacciona</w>
+      <w>matr</w>
       <w>matricula</w>
       <w>metodo</w>
       <w>mibarra</w>
@@ -36,9 +39,16 @@
       <w>puntos</w>
       <w>reacciona</w>
       <w>resultado</w>
+      <w>retirada</w>
       <w>salida</w>
       <w>servicio</w>
       <w>servidor</w>
+      <w>xxxx</w>
+      <w>xxxxx</w>
+      <w>xxxxxx</w>
+      <w>xxxxxxx</w>
+      <w>xxxxxxxxxxx</w>
+      <w>xxxxxxxxxxxx</w>
     </words>
   </dictionary>
 </component>

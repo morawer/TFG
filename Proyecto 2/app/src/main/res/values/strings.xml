@@ -103,4 +103,5 @@
     <string name="retirada_de_puntos_x_pts">Retirada de puntos: X pts.</string>
     <string name="fecha_xx_xx_xxxx">Fecha: xx/xx/xxxx</string>
     <string name="estado_de_tr_mite_xxxxxxxxxxx">Estado de trámite: Xxxxxxxxxxx</string>
+    <string name="toca_para_cerrar">Toca para cerrar.</string>
 </resources>

@@ -135,8 +135,6 @@ public class ImagenExpActivity extends AppCompatActivity {
         postMethod();
 
         descargarPDF.setOnClickListener(v -> crearPDF());
-
-
     }
 
     public void postMethod() {
@@ -224,7 +222,9 @@ public class ImagenExpActivity extends AppCompatActivity {
             System.out.println("El tamaño del array es de: " + imagenesBase64ArrayList.size());
             Log.d("TAG-leerJson()", "Lectura correcta Json.");
 
-            gridViewImagenes.setOnItemClickListener((parent, view, position, id) -> Toast.makeText(ImagenExpActivity.this, imagenesBase64ArrayList.get(position).getNombre(), Toast.LENGTH_SHORT).show());
+            gridViewImagenes.setOnItemClickListener((parent, view, position, id) -> {
+                Toast.makeText(ImagenExpActivity.this, imagenesBase64ArrayList.get(position).getNombre(), Toast.LENGTH_SHORT).show();
+            });
 
         } catch (JSONException e) {
             e.printStackTrace();

@@ -132,7 +132,8 @@ public class ExpedienteActivity extends AppCompatActivity {
             listViewExpedientes.setAdapter(itemsExpediente);
 
             Calendar c = Calendar.getInstance();
-            @SuppressLint("SimpleDateFormat") SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+            @SuppressLint("SimpleDateFormat")
+            SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
             fecha = findViewById(R.id.actualizacion);
             String formattedDate = df.format(c.getTime());
             fecha.setText("Ultima actualización: " + formattedDate);

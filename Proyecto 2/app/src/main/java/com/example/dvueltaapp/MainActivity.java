@@ -1,22 +1,18 @@
 package com.example.dvueltaapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
-
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -30,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText name;
     private EditText password;
-    private Button login;
     private int statusCode = 0;
     private final String URL = "http://preskynet.dvuelta.es/api10getuserapikey";
     private final String APIKEY_ACCESS = "2c94243c0c0dc4452db4efd257d34d2f";
@@ -44,52 +39,43 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        name = (EditText) findViewById(R.id.userName);
-        password = (EditText) findViewById(R.id.userPassword);
-        login = (Button) findViewById(R.id.botonEntrar);
+        name = findViewById(R.id.userName);
+        password = findViewById(R.id.userPassword);
+        Button login = findViewById(R.id.botonEntrar);
         user = name.getText().toString();
         passwordUser = password.getText().toString();
 
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                user = name.getText().toString();
-                passwordUser = password.getText().toString();
-                postMethod();
-            }
+        login.setOnClickListener(v -> {
+            user = name.getText().toString();
+            passwordUser = password.getText().toString();
+            postMethod();
         });
     }
 //Metodo para enviar los datos en una peticion Http post.
     public void postMethod() {
 
-        StringRequest postRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                System.out.println(response);
-                Log.d("LOG_onResponse: ", String.valueOf(statusCode));
+        StringRequest postRequest = new StringRequest(Request.Method.POST, URL, response -> {
+            System.out.println(response);
+            Log.d("LOG_onResponse: ", String.valueOf(statusCode));
 
-                if (statusCode == 200) {
-                    if (errorLogin(response)) {
-                        resetEditText();
-                        Toast.makeText(MainActivity.this, "Usuario o contraseña incorrecto.", Toast.LENGTH_SHORT).show();
+            if (statusCode == 200) {
+                if (errorLogin(response)) {
+                    resetEditText();
+                    Toast.makeText(MainActivity.this, "Usuario o contraseña incorrecto.", Toast.LENGTH_SHORT).show();
 
-                    } else {
-                        //resetEditText();  Linea desactivada para no escribir de nuevo user y password al retroceder.
-                        intent = new Intent(MainActivity.this, WelcomeActivity.class);
-                        intent.putExtra("clienteJson", response);
-                        startActivity(intent);
-                    }
+                } else {
+                    //resetEditText();  Linea desactivada para no escribir de nuevo user y password al retroceder.
+                    intent = new Intent(MainActivity.this, WelcomeActivity.class);
+                    intent.putExtra("clienteJson", response);
+                    startActivity(intent);
                 }
             }
         },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        error.printStackTrace();
-                        Toast.makeText(MainActivity.this, "Fallo en servidor", Toast.LENGTH_SHORT).show();
-                        Log.d("LOG_onErrorResponse: ", "Fallo en servidor: " + String.valueOf(statusCode));
-                        resetEditText();
-                    }
+                error -> {
+                    error.printStackTrace();
+                    Toast.makeText(MainActivity.this, "Fallo en servidor", Toast.LENGTH_SHORT).show();
+                    Log.d("LOG_onErrorResponse: ", "Fallo en servidor: " + statusCode);
+                    resetEditText();
                 }
         ) {
             @Override
@@ -110,9 +96,9 @@ public class MainActivity extends AppCompatActivity {
 //Metodo que comprueba que el login con el servidor es correcto.
     public boolean errorLogin(String response) {
         try {
-            JSONObject jsonObj = null;
-            String error = "";
-            String errorMsg = "";
+            JSONObject jsonObj;
+            String error;
+            String errorMsg;
             jsonObj = new JSONObject(response);
             error = jsonObj.getString("status");
             errorMsg = jsonObj.getString("msg");

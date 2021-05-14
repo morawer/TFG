@@ -1,9 +1,6 @@
 package com.example.dvueltaapp;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Typeface;
@@ -11,10 +8,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,6 +32,7 @@ public class WelcomeActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -46,8 +46,6 @@ public class WelcomeActivity extends AppCompatActivity {
                 break;
 
             case R.id.menu_envio:
-                Toast.makeText(WelcomeActivity.this, "Sin servicio", Toast.LENGTH_SHORT).show();
-                break;
             case R.id.menu_ayuda:
                 Toast.makeText(WelcomeActivity.this, "Sin servicio", Toast.LENGTH_SHORT).show();
                 break;
@@ -60,25 +58,21 @@ public class WelcomeActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
-        Toolbar mibarra= (Toolbar) findViewById(R.id.toolBar);
+        Toolbar mibarra= findViewById(R.id.toolBar);
         setSupportActionBar(mibarra);
 
-        mibarra.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(WelcomeActivity.this, "Sin servicio", Toast.LENGTH_SHORT).show();
-            }
-        });
+        mibarra.setNavigationOnClickListener(v -> Toast.makeText(WelcomeActivity.this, "Sin servicio", Toast.LENGTH_SHORT).show());
 
         Bundle extras = getIntent().getExtras();
-        String clienteJson = (String) extras.getString("clienteJson");
-        welcome = (TextView) findViewById(R.id.welcomeText);
+        String clienteJson = extras.getString("clienteJson");
+        welcome = findViewById(R.id.welcomeText);
 
         Typeface typeface = getResources().getFont(R.font.hindmedium);
         welcome.setTypeface(typeface);
@@ -87,8 +81,9 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     //Método para leer el Json obtenido en extras de MainActivity.
+    @SuppressLint("SetTextI18n")
     public void leerJson(String clienteJson) {
-        JSONObject jsonObj = null;
+        JSONObject jsonObj;
         try {
             jsonObj = new JSONObject(clienteJson);
             JSONObject msg = jsonObj.getJSONObject("msg");

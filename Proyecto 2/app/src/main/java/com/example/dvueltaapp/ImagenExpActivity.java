@@ -1,6 +1,7 @@
 package com.example.dvueltaapp;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -17,11 +18,8 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,7 +31,6 @@ import androidx.core.app.ActivityCompat;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -52,16 +49,12 @@ public class ImagenExpActivity extends AppCompatActivity {
     private final String APIKEY_ACCESS = "2c94243c0c0dc4452db4efd257d34d2f";
     private final String URL = "http://preskynet.dvuelta.es/api10getexpedientsimage";
 
-    private final static String NOMBRE_DIRECTORIO = "DVuelta";
-    private String nombrePdf;
-
     String apiKeyUser, idImagen, nomOrg, hechoDenunciado, matricula, puntos, fechaExp, estadoExp, numExp;
     Imagenes imagenes;
     ArrayList<ImagenesBase64> imagenesBase64ArrayList;
     ImagenesBase64 imagenesBase64;
     int statusCode = 0;
     TextView nomOrgExpText, hechoExpText, matriculaExpText, puntosExpText, fechaExpText, estadoExpText, numExpText;
-    ImageView imgDecode = null;
     Button descargarPDF;
     File myFile;
     GridView gridViewImagenes;
@@ -72,6 +65,7 @@ public class ImagenExpActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -90,38 +84,39 @@ public class ImagenExpActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_imagen_exp);
 
-        Toolbar toolBarImagenExp = (Toolbar) findViewById(R.id.toolBarImagenExp);
+        Toolbar toolBarImagenExp = findViewById(R.id.toolBarImagenExp);
         setSupportActionBar(toolBarImagenExp);
 
         imagenes = new Imagenes();
 
         Bundle extras = getIntent().getExtras();
-        apiKeyUser = (String) extras.getString("apiKeyUser");
-        idImagen = (String) extras.getString("idImagen");
-        nomOrg = (String) extras.getString("nombreOrg");
-        hechoDenunciado = (String) extras.getString("hechoDenunciado");
-        matricula = (String) extras.getString("matricula");
-        puntos = (String) extras.getString("puntos");
-        fechaExp = (String) extras.getString("fecha");
-        estadoExp = (String) extras.getString("estado");
-        numExp = (String) extras.getString("numExp");
+        apiKeyUser = extras.getString("apiKeyUser");
+        idImagen = extras.getString("idImagen");
+        nomOrg = extras.getString("nombreOrg");
+        hechoDenunciado = extras.getString("hechoDenunciado");
+        matricula = extras.getString("matricula");
+        puntos = extras.getString("puntos");
+        fechaExp = extras.getString("fecha");
+        estadoExp = extras.getString("estado");
+        numExp = extras.getString("numExp");
 
         imagenes.setApiKeyUser(apiKeyUser);
         imagenes.setIdImagen(idImagen);
 
-        nomOrgExpText = (TextView) findViewById(R.id.nomOrgExp);
-        hechoExpText = (TextView) findViewById(R.id.hechoExp);
-        matriculaExpText = (TextView) findViewById(R.id.matriculaExp);
-        puntosExpText = (TextView) findViewById(R.id.puntosExp);
-        fechaExpText = (TextView) findViewById(R.id.fechaExp);
-        estadoExpText = (TextView) findViewById(R.id.expedienteEstadoExp);
-        numExpText = (TextView) findViewById(R.id.numExpImg);
+        nomOrgExpText = findViewById(R.id.nomOrgExp);
+        hechoExpText = findViewById(R.id.hechoExp);
+        matriculaExpText = findViewById(R.id.matriculaExp);
+        puntosExpText = findViewById(R.id.puntosExp);
+        fechaExpText = findViewById(R.id.fechaExp);
+        estadoExpText = findViewById(R.id.expedienteEstadoExp);
+        numExpText = findViewById(R.id.numExpImg);
 
         nomOrgExpText.setText("Lugar: " + nomOrg);
         hechoExpText.setText("Denuncia: " + hechoDenunciado);
@@ -134,49 +129,38 @@ public class ImagenExpActivity extends AppCompatActivity {
         numExpText.setTypeface(typeface);
         numExpText.setText("Expediente: " + numExp);
 
-        descargarPDF = (Button) findViewById(R.id.botonPDF);
+        descargarPDF = findViewById(R.id.botonPDF);
         descargarPDF.setEnabled(false);
 
         postMethod();
 
-        descargarPDF.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                crearPDF();
-            }
-        });
+        descargarPDF.setOnClickListener(v -> crearPDF());
 
 
     }
 
     public void postMethod() {
-        StringRequest postRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                System.out.println(response);
-                Log.d("LOG_onResponse: ", String.valueOf(statusCode));
+        StringRequest postRequest = new StringRequest(Request.Method.POST, URL, response -> {
+            System.out.println(response);
+            Log.d("LOG_onResponse: ", String.valueOf(statusCode));
 
-                if (statusCode == 200) {
-                    if (errorImagenExp(response)) {
-                        Toast.makeText(ImagenExpActivity.this, "Problema al obtener las imagenes", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(ImagenExpActivity.this, WelcomeActivity.class);
-                        startActivity(intent);
-                    } else {
-                        leerJson(response);
-                        descargarPDF.setText("Descargar expediente en PDF.");
-                        descargarPDF.setBackgroundResource(R.drawable.boton_redondo);
-                        descargarPDF.setEnabled(true);
-                    }
+            if (statusCode == 200) {
+                if (errorImagenExp(response)) {
+                    Toast.makeText(ImagenExpActivity.this, "Problema al obtener las imagenes", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(ImagenExpActivity.this, WelcomeActivity.class);
+                    startActivity(intent);
+                } else {
+                    leerJson(response);
+                    descargarPDF.setText("Descargar expediente en PDF.");
+                    descargarPDF.setBackgroundResource(R.drawable.boton_redondo);
+                    descargarPDF.setEnabled(true);
                 }
             }
         },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        error.printStackTrace();
-                        Toast.makeText(ImagenExpActivity.this, "Fallo en servidor", Toast.LENGTH_SHORT).show();
-                        Log.d("LOG_onErrorResponse: ", "Fallo en servidor: " + String.valueOf(statusCode));
-                    }
+                error -> {
+                    error.printStackTrace();
+                    Toast.makeText(ImagenExpActivity.this, "Fallo en servidor", Toast.LENGTH_SHORT).show();
+                    Log.d("LOG_onErrorResponse: ", "Fallo en servidor: " + statusCode);
                 }
         ) {
             @Override
@@ -199,9 +183,9 @@ public class ImagenExpActivity extends AppCompatActivity {
     //Metodo que comprueba que el login con el servidor es correcto.
     public boolean errorImagenExp(String response) {
         try {
-            JSONObject jsonObj = null;
-            String error = "";
-            String errorMsg = "";
+            JSONObject jsonObj;
+            String error;
+            String errorMsg;
             jsonObj = new JSONObject(response);
             error = jsonObj.getString("status");
             errorMsg = jsonObj.getString("msg");
@@ -234,18 +218,13 @@ public class ImagenExpActivity extends AppCompatActivity {
             imagenes.setImagenesBase64(imagenesBase64ArrayList);
 
             ImagenExpAdapter itemsImagenesBase64 = new ImagenExpAdapter(ImagenExpActivity.this, imagenesBase64ArrayList);
-            gridViewImagenes = (GridView)findViewById(R.id.gridImg);
+            gridViewImagenes = findViewById(R.id.gridImg);
             gridViewImagenes.setAdapter(itemsImagenesBase64);
 
             System.out.println("El tamaño del array es de: " + imagenesBase64ArrayList.size());
             Log.d("TAG-leerJson()", "Lectura correcta Json.");
 
-            gridViewImagenes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Toast.makeText(ImagenExpActivity.this, imagenesBase64ArrayList.get(position).getNombre(), Toast.LENGTH_SHORT).show();
-                }
-            });
+            gridViewImagenes.setOnItemClickListener((parent, view, position, id) -> Toast.makeText(ImagenExpActivity.this, imagenesBase64ArrayList.get(position).getNombre(), Toast.LENGTH_SHORT).show());
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -292,8 +271,7 @@ public class ImagenExpActivity extends AppCompatActivity {
     public Bitmap decodeImage(String base64) {
         byte[] imageBytes = Base64.decode(base64, Base64.DEFAULT);
         Bitmap decodedImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
-        Bitmap resizeImage = Bitmap.createScaledBitmap(decodedImage, 750, 1150, true);
-        return resizeImage;
+        return Bitmap.createScaledBitmap(decodedImage, 750, 1150, true);
     }
 
     public void viewPdf(File myFile) {

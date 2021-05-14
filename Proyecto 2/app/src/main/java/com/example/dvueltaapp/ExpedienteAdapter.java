@@ -1,12 +1,12 @@
 package com.example.dvueltaapp;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,6 +19,7 @@ public class ExpedienteAdapter extends ArrayAdapter<Expedientes> {
         super(context, 0, expediente);
     }
 
+    @SuppressLint("SetTextI18n")
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -31,10 +32,10 @@ public class ExpedienteAdapter extends ArrayAdapter<Expedientes> {
 
         Expedientes expediente = getItem(position);
 
-        TextView idExp = (TextView) listaPersonalizada.findViewById(R.id.expedienteId);
-        TextView fechaExp = (TextView) listaPersonalizada.findViewById(R.id.expedienteFecha);
-        TextView estadoExp = (TextView) listaPersonalizada.findViewById(R.id.expedienteEstado);
-        TextView importeExp = (TextView) listaPersonalizada.findViewById(R.id.expedienteImporte);
+        TextView idExp = listaPersonalizada.findViewById(R.id.expedienteId);
+        TextView fechaExp = listaPersonalizada.findViewById(R.id.expedienteFecha);
+        TextView estadoExp = listaPersonalizada.findViewById(R.id.expedienteEstado);
+        TextView importeExp = listaPersonalizada.findViewById(R.id.expedienteImporte);
 
         String idExpediente = expediente.getNroExp();
         String[] expsPartes = idExpediente.split(",");

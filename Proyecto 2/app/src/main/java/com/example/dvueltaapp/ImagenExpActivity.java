@@ -223,7 +223,13 @@ public class ImagenExpActivity extends AppCompatActivity {
             Log.d("TAG-leerJson()", "Lectura correcta Json.");
 
             gridViewImagenes.setOnItemClickListener((parent, view, position, id) -> {
-                Toast.makeText(ImagenExpActivity.this, imagenesBase64ArrayList.get(position).getNombre(), Toast.LENGTH_SHORT).show();
+
+                Bitmap imagen = decodeImage(imagenesBase64ArrayList.get(position).getBase64());
+                String nombreImagen = imagenesBase64ArrayList.get(position).getNombre();
+
+                //guardar imagen
+                Save savefile = new Save();
+                savefile.SaveImage(this, imagen , nombreImagen);
             });
 
         } catch (JSONException e) {

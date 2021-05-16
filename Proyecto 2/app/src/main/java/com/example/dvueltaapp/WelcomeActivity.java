@@ -103,7 +103,7 @@ public class WelcomeActivity extends AppCompatActivity {
             if (horas >= 20 && horas <= 23){
                 welcome.setText("Buenas noches \n" + cliente.getNombre());
             }
-            if (horas <= 0 && horas < 6){
+            if (horas >= 0 && horas < 6){
                 welcome.setText("Buenas noches \n" + cliente.getNombre());
             }
 

@@ -14,6 +14,8 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+//Clase para salvar la imagen del expediente en el dispositivo del usuario.
+
 public class Save {
 
     private Context TheThis;

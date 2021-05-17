@@ -229,7 +229,23 @@ public class ImagenExpActivity extends AppCompatActivity {
 
                 //guardar imagen
                 Save savefile = new Save();
-                savefile.SaveImage(this, imagen , nombreImagen);
+                String filepath = savefile.SaveImage(this, imagen , nombreImagen);
+
+                Intent intent = new Intent().setAction(Intent.ACTION_GET_CONTENT);
+                Uri path = Uri.parse(filepath);
+                Toast.makeText(this, filepath, Toast.LENGTH_SHORT).show();
+                intent.setDataAndType(path, "image/*");
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+
+                Log.d("pathIMAGE", filepath);
+                try {
+                    startActivityForResult(Intent.createChooser(intent, ""), 1);
+                } catch (ActivityNotFoundException e) {
+                    Log.d("ERROR", "NO TIENES APP PARA VER LA IMAGEN");
+                    Toast.makeText(this, "NO TIENES APP PARA VER LA IMAGEN", Toast.LENGTH_SHORT).show();
+                }
+
             });
 
         } catch (JSONException e) {

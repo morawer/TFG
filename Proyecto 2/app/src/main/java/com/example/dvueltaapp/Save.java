@@ -11,8 +11,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 //Clase para salvar la imagen del expediente en el dispositivo del usuario.
 
@@ -22,18 +20,17 @@ public class Save {
     private String NameOfFolder = "/Download";
     private String NameOfFile = "imagen";
 
-    public void SaveImage(Context context, Bitmap ImageToSave, String nombreImagen) {
+    public String SaveImage(Context context, Bitmap ImageToSave, String nombreImagen) {
 
         TheThis = context;
         String file_path = Environment.getExternalStorageDirectory().getAbsolutePath() + NameOfFolder;
-        String CurrentDateAndTime = getCurrentDateAndTime();
         File dir = new File(file_path);
 
         if (!dir.exists()) {
             dir.mkdirs();
         }
 
-        File file = new File(dir, nombreImagen + CurrentDateAndTime + ".jpg");
+        File file = new File(dir, nombreImagen.substring(0, nombreImagen.length()-4) + ".jpg");
 
         try {
             FileOutputStream fOut = new FileOutputStream(file);
@@ -52,6 +49,8 @@ public class Save {
             UnableToSave();
         }
 
+        return file.getAbsolutePath();
+
     }
 
     private void MakeSureFileWasCreatedThenMakeAvabile(File file){
@@ -66,12 +65,11 @@ public class Save {
                 });
     }
 
-    private String getCurrentDateAndTime() {
-        Calendar c = Calendar.getInstance();
-        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy-HH-mm-ss");
-        String formattedDate = df.format(c.getTime());
-        return formattedDate;
+    private void getAbsolutePath(Save saveFile) {
+
     }
+
+
 
     private void UnableToSave() {
         Toast.makeText(TheThis, "¡No se ha podido guardar la imagen!", Toast.LENGTH_SHORT).show();

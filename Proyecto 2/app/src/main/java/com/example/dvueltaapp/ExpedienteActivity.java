@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -37,6 +38,9 @@ public class ExpedienteActivity extends AppCompatActivity {
     private final String APIKEY_ACCESS = "2c94243c0c0dc4452db4efd257d34d2f";
     private final String URL = "http://preskynet.dvuelta.es/api10getexpedients";
     private int statusCode = 0;
+    private final String URL_CONTACTO = "https://www.dvuelta.es/index.php/contacto";
+
+
     Intent intent;
     Cliente cliente = new Cliente();
     Expedientes expediente;
@@ -63,8 +67,12 @@ public class ExpedienteActivity extends AppCompatActivity {
                 startActivity(inicio);
                 break;
             case R.id.menu_envio:
-            case R.id.menu_ayuda:
                 Toast.makeText(ExpedienteActivity.this, "Sin servicio", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.menu_ayuda:
+                Uri contacto = Uri.parse(URL_CONTACTO);
+                Intent i = new Intent(Intent.ACTION_VIEW, contacto);
+                startActivity(i);
                 break;
             case R.id.menu_salir:
                 Intent salida = new Intent(ExpedienteActivity.this, MainActivity.class);

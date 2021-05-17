@@ -48,6 +48,7 @@ public class ImagenExpActivity extends AppCompatActivity {
 
     private final String APIKEY_ACCESS = "2c94243c0c0dc4452db4efd257d34d2f";
     private final String URL = "http://preskynet.dvuelta.es/api10getexpedientsimage";
+    private final String URL_CONTACTO = "https://www.dvuelta.es/index.php/contacto";
 
     String apiKeyUser, idImagen, nomOrg, hechoDenunciado, matricula, puntos, fechaExp, estadoExp, numExp;
     Imagenes imagenes;
@@ -72,8 +73,12 @@ public class ImagenExpActivity extends AppCompatActivity {
 
             case R.id.menu_inicio:
             case R.id.menu_envio:
-            case R.id.menu_ayuda:
                 Toast.makeText(ImagenExpActivity.this, "Sin servicio", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.menu_ayuda:
+                Uri contacto = Uri.parse(URL_CONTACTO);
+                Intent i = new Intent(Intent.ACTION_VIEW, contacto);
+                startActivity(i);
                 break;
             case R.id.menu_salir:
                 Intent salida = new Intent(ImagenExpActivity.this, MainActivity.class);

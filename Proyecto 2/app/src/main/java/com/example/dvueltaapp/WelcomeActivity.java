@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -22,6 +23,7 @@ import java.util.Date;
 
 public class WelcomeActivity extends AppCompatActivity {
 
+    private final String URL_CONTACTO = "https://www.dvuelta.es/index.php/contacto";
     private TextView welcome;
     Cliente cliente = new Cliente();
     Intent intent;
@@ -46,8 +48,12 @@ public class WelcomeActivity extends AppCompatActivity {
                 break;
 
             case R.id.menu_envio:
-            case R.id.menu_ayuda:
                 Toast.makeText(WelcomeActivity.this, "Sin servicio", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.menu_ayuda:
+                Uri contacto = Uri.parse(URL_CONTACTO);
+                Intent i = new Intent(Intent.ACTION_VIEW, contacto);
+                startActivity(i);
                 break;
             case R.id.menu_salir:
                 Intent salida = new Intent(WelcomeActivity.this, MainActivity.class);

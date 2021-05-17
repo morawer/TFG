@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 
 import java.util.List;
 
+//Clase para inflar la lista de expedientes.
 public class ExpedienteAdapter extends ArrayAdapter<Expedientes> {
 
     public ExpedienteAdapter(Context context,List<Expedientes> expediente) {

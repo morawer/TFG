@@ -53,11 +53,11 @@ public class ExpedienteActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    //Menu desplegable de opciones.
     @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-
             case R.id.menu_inicio:
                 Intent inicio = new Intent(ExpedienteActivity.this, WelcomeActivity.class);
                 startActivity(inicio);
@@ -172,6 +172,7 @@ public class ExpedienteActivity extends AppCompatActivity {
         }
     }
 
+    //Metodo para enviar los datos en una peticion Http post.
     public void postMethod() {
         StringRequest postRequest = new StringRequest(Request.Method.POST, URL, response -> {
             System.out.println(response);

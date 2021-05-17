@@ -137,6 +137,7 @@ public class ImagenExpActivity extends AppCompatActivity {
         descargarPDF.setOnClickListener(v -> crearPDF());
     }
 
+    //Metodo para enviar los datos en una peticion Http post.
     public void postMethod() {
         StringRequest postRequest = new StringRequest(Request.Method.POST, URL, response -> {
             System.out.println(response);
@@ -177,7 +178,6 @@ public class ImagenExpActivity extends AppCompatActivity {
         };
         Volley.newRequestQueue(this).add(postRequest);
     }
-
     //Metodo que comprueba que el login con el servidor es correcto.
     public boolean errorImagenExp(String response) {
         try {
@@ -237,7 +237,7 @@ public class ImagenExpActivity extends AppCompatActivity {
             Log.d("TAG-leerJson()_ERROR", "Error de lectura Json.");
         }
     }
-
+    //Metodo para recorrer el ArrayList de imagenes en base64, decodificarlas y guardarlas en un archivo PDF.
     public void crearPDF() {
 
         ActivityCompat.requestPermissions(ImagenExpActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, PackageManager.PERMISSION_GRANTED);

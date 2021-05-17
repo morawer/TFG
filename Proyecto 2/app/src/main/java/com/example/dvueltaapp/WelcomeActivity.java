@@ -34,7 +34,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
     @SuppressLint("NonConstantResourceId")
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) { //Opciones de menu desplegable
         switch (item.getItemId()) {
             case R.id.menu_expediente:
                 intent = new Intent(WelcomeActivity.this, ExpedienteActivity.class);
@@ -91,26 +91,30 @@ public class WelcomeActivity extends AppCompatActivity {
             cliente.setNombre(msg.getString("displayName"));
             cliente.setApiKey(msg.getString("apiKey"));
 
-            Date dt = new Date();
-            int horas = dt.getHours();
-
-            if (horas >= 6 && horas < 12){
-                welcome.setText("Buenos días \n" + cliente.getNombre());
-            }
-            if (horas >= 12 && horas < 20){
-                welcome.setText("Buenas tardes \n" + cliente.getNombre());
-            }
-            if (horas >= 20 && horas <= 23){
-                welcome.setText("Buenas noches \n" + cliente.getNombre());
-            }
-            if (horas >= 0 && horas < 6){
-                welcome.setText("Buenas noches \n" + cliente.getNombre());
-            }
+            welcomeUser();
 
             Log.d("TAG-leerJson()", "Lectura correcta Json.");
         } catch (JSONException e) {
             e.printStackTrace();
             Log.d("TAG-leerJson()_ERROR", "Error de lectura Json.");
+        }
+    }
+//Metodo que según la hora del dia de da un saludo personalizado.
+    private void welcomeUser() {
+        Date dt = new Date();
+        int horas = dt.getHours();
+
+        if (horas >= 6 && horas < 12){
+            welcome.setText("Buenos días \n" + cliente.getNombre());
+        }
+        if (horas >= 12 && horas < 20){
+            welcome.setText("Buenas tardes \n" + cliente.getNombre());
+        }
+        if (horas >= 20 && horas <= 23){
+            welcome.setText("Buenas noches \n" + cliente.getNombre());
+        }
+        if (horas >= 0 && horas < 6){
+            welcome.setText("Buenas noches \n" + cliente.getNombre());
         }
     }
 }

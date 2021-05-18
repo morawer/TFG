@@ -73,7 +73,8 @@ public class ImagenExpActivity extends AppCompatActivity {
 
             case R.id.menu_inicio:
             case R.id.menu_envio:
-                Toast.makeText(ImagenExpActivity.this, "Sin servicio", Toast.LENGTH_SHORT).show();
+                Intent envio = new Intent(ImagenExpActivity.this, EnvioExpActivity.class);
+                startActivity(envio);
                 break;
             case R.id.menu_ayuda:
                 Uri contacto = Uri.parse(URL_CONTACTO);

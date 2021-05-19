@@ -48,7 +48,8 @@ public class WelcomeActivity extends AppCompatActivity {
                 break;
 
             case R.id.menu_envio:
-                Toast.makeText(WelcomeActivity.this, "Sin servicio", Toast.LENGTH_SHORT).show();
+                Intent envio = new Intent(WelcomeActivity.this, EnvioExpActivity.class);
+                startActivity(envio);
                 break;
             case R.id.menu_ayuda:
                 Uri contacto = Uri.parse(URL_CONTACTO);

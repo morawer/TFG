@@ -67,7 +67,8 @@ public class ExpedienteActivity extends AppCompatActivity {
                 startActivity(inicio);
                 break;
             case R.id.menu_envio:
-                Toast.makeText(ExpedienteActivity.this, "Sin servicio", Toast.LENGTH_SHORT).show();
+                Intent envio = new Intent(ExpedienteActivity.this, EnvioExpActivity.class);
+                startActivity(envio);
                 break;
             case R.id.menu_ayuda:
                 Uri contacto = Uri.parse(URL_CONTACTO);

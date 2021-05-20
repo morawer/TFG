@@ -30,6 +30,7 @@ public class EnvioExpActivity extends AppCompatActivity {
     Button camaraButton, galeriaButton;
     ImageView imgView;
 
+    private static final int PICK_IMAGE = 100;
     private static final String TAG = "MainActivity";
     private static final int PICTURE_RESULT = 122;
     private ContentValues values;
@@ -50,53 +51,85 @@ public class EnvioExpActivity extends AppCompatActivity {
         camaraButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                abrirCamara();
+            }
+        });
 
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    //Check permissions for Android 6.0+
-                    if (!checkExternalStoragePermission()) {
-                        return;
-                    }
-                }
-                values = new ContentValues();
-                values.put(MediaStore.Images.Media.TITLE, "MyPicture");
-                values.put(MediaStore.Images.Media.DESCRIPTION, "Photo taken on " + System.currentTimeMillis());
-                imageUri = getContentResolver().insert(
-                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
-                String imagenOriginal = MediaStore.ACTION_IMAGE_CAPTURE;
-
-                Intent intent = new Intent(imagenOriginal);
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-                startActivityForResult(intent, PICTURE_RESULT);
+        galeriaButton = findViewById(R.id.botonGaleria);
+        galeriaButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+                startActivityForResult(gallery, PICK_IMAGE);
             }
         });
 
     }
 
+    private void abrirCamara() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            //Check permissions for Android 6.0+
+            if (!checkExternalStoragePermission()) {
+                return;
+            }
+        }
+        values = new ContentValues();
+        values.put(MediaStore.Images.Media.TITLE, "MyPicture");
+        values.put(MediaStore.Images.Media.DESCRIPTION, "Photo taken on " + System.currentTimeMillis());
+        imageUri = getContentResolver().insert(
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+        String imagenOriginal = MediaStore.ACTION_IMAGE_CAPTURE;
+
+        Intent intent = new Intent(imagenOriginal);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+        startActivityForResult(intent, PICTURE_RESULT);
+    }
+
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case PICTURE_RESULT:
-                if (requestCode == PICTURE_RESULT)
-                    if (resultCode == Activity.RESULT_OK) {
-                        try {
-                            thumbnail = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
-                            imgView.setImageBitmap(thumbnail);
-                            imageurl = getRealPathFromURI(imageUri);
-                            Bitmap bmp = BitmapFactory.decodeFile(imageurl);
-                            Bitmap imageScaled = Bitmap.createScaledBitmap(bmp, 1500, 2000, false);
+                if (requestCode == PICTURE_RESULT && resultCode == Activity.RESULT_OK)
+                    try {
+                        thumbnail = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+                        imgView.setImageBitmap(thumbnail);
+                        imageurl = getRealPathFromURI(imageUri);
+                        Bitmap bmp = BitmapFactory.decodeFile(imageurl);
+                        Bitmap imageScaled = Bitmap.createScaledBitmap(bmp, 1500, 2000, false);
 
-                            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                            imageScaled.compress(Bitmap.CompressFormat.JPEG, 40, bos);
-                            byte[] byteArray = bos.toByteArray();
+                        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                        imageScaled.compress(Bitmap.CompressFormat.JPEG, 40, bos);
+                        byte[] byteArray = bos.toByteArray();
 
-                            encodedImage = Base64.encodeToString(byteArray, Base64.DEFAULT);
+                        encodedImage = Base64.encodeToString(byteArray, Base64.DEFAULT);
 
-                            Toast.makeText(this, encodedImage.substring(0,15), Toast.LENGTH_SHORT).show();
-                            System.out.print(encodedImage);
+                        Toast.makeText(this, encodedImage.substring(0, 15), Toast.LENGTH_SHORT).show();
+                        System.out.print(encodedImage);
 
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
+            case PICK_IMAGE:
+                if(resultCode == RESULT_OK && requestCode == PICK_IMAGE){
+                    try {
+                        imageUri = data.getData();
+                        imgView.setImageURI(imageUri);
+                        imageurl = getRealPathFromURI(imageUri);
+                        Bitmap bmp = BitmapFactory.decodeFile(imageurl);
+                        Bitmap imageScaled = Bitmap.createScaledBitmap(bmp, 1500, 2000, false);
+
+                        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                        imageScaled.compress(Bitmap.CompressFormat.JPEG, 40, bos);
+                        byte[] byteArray = bos.toByteArray();
+
+                        encodedImage = Base64.encodeToString(byteArray, Base64.DEFAULT);
+
+                        Toast.makeText(this, encodedImage.substring(0, 15), Toast.LENGTH_SHORT).show();
+                        System.out.print(encodedImage);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
         }
     }
 

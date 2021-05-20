@@ -7,18 +7,23 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
+import java.io.ByteArrayOutputStream;
 
 public class EnvioExpActivity extends AppCompatActivity {
 
@@ -26,11 +31,12 @@ public class EnvioExpActivity extends AppCompatActivity {
     ImageView imgView;
 
     private static final String TAG = "MainActivity";
-    private static final int PICTURE_RESULT = 122 ;
+    private static final int PICTURE_RESULT = 122;
     private ContentValues values;
     private Uri imageUri;
     private Bitmap thumbnail;
     String imageurl;
+    String encodedImage;
 
 
     @Override
@@ -39,16 +45,15 @@ public class EnvioExpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_envio_exp);
 
 
-
         imgView = findViewById(R.id.imagenCamara);
         camaraButton = findViewById(R.id.botonCamara);
         camaraButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     //Check permissions for Android 6.0+
-                    if(!checkExternalStoragePermission()){
+                    if (!checkExternalStoragePermission()) {
                         return;
                     }
                 }
@@ -59,8 +64,7 @@ public class EnvioExpActivity extends AppCompatActivity {
                         MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
                 String imagenOriginal = MediaStore.ACTION_IMAGE_CAPTURE;
 
-                Bitmap imageScaled = Bitmap.createScaledBitmap(imagenOriginal, 600, 800, false);
-                Intent intent = new Intent(imageScaled);
+                Intent intent = new Intent(imagenOriginal);
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
                 startActivityForResult(intent, PICTURE_RESULT);
             }
@@ -77,6 +81,17 @@ public class EnvioExpActivity extends AppCompatActivity {
                             thumbnail = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
                             imgView.setImageBitmap(thumbnail);
                             imageurl = getRealPathFromURI(imageUri);
+                            Bitmap bmp = BitmapFactory.decodeFile(imageurl);
+                            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                            bmp.compress(Bitmap.CompressFormat.JPEG, 40, bos);
+                            byte[] byteArray = bos.toByteArray();
+
+
+                            encodedImage = Base64.encodeToString(byteArray, Base64.DEFAULT);
+
+                            Toast.makeText(this, encodedImage.substring(0,15), Toast.LENGTH_SHORT).show();
+                            System.out.print(encodedImage);
+
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -86,7 +101,7 @@ public class EnvioExpActivity extends AppCompatActivity {
     }
 
     public String getRealPathFromURI(Uri contentUri) {
-        String[] proj = { MediaStore.Images.Media.DATA };
+        String[] proj = {MediaStore.Images.Media.DATA};
         Cursor cursor = managedQuery(contentUri, proj, null, null, null);
         int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
         cursor.moveToFirst();

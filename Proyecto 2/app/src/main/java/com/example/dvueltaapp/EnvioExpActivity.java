@@ -23,7 +23,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.android.volley.NetworkResponse;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.ByteArrayOutputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 public class EnvioExpActivity extends AppCompatActivity {
 
@@ -31,10 +42,14 @@ public class EnvioExpActivity extends AppCompatActivity {
     ImageView imgView;
     private static final int PICK_IMAGE = 100, PICTURE_RESULT = 122;
     private static final String TAG = "MainActivity";
+    private final String URL = "xxxxxxxxxxxxxxxxxxxxxxx";
+    private final String APIKEY_ACCESS = "2c94243c0c0dc4452db4efd257d34d2f";
     private ContentValues values;
     private Uri imageUri;
     private Bitmap thumbnail;
     private String imageurl, encodedImage, apiKeyUser;
+    private int statusCode = 0;
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -152,6 +167,61 @@ public class EnvioExpActivity extends AppCompatActivity {
         } else {
             Log.i(TAG, "You already have permission!");
             return true;
+        }
+        return false;
+    }
+
+    public void postMethod() {
+        StringRequest postRequest = new StringRequest(Request.Method.POST, URL, response -> {
+            System.out.println(response);
+            Log.d("LOG_onResponse: ", String.valueOf(statusCode));
+
+            if (statusCode == 200) {
+                if (errorEnvioImg(response)) {
+                    Toast.makeText(this, "Error al enviar la imagen.", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "Imagen enviada correctamente.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        },
+                error -> {
+                    error.printStackTrace();
+                    Toast.makeText(ExpedienteActivity.this, "Fallo en servidor", Toast.LENGTH_SHORT).show();
+                    Log.d("LOG_onErrorResponse: ", "Fallo en servidor: " + statusCode);
+                }
+        ) {
+            @Override
+            protected Response<String> parseNetworkResponse(NetworkResponse response) {
+                statusCode = response.statusCode;
+                return super.parseNetworkResponse(response);
+            }
+
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("apiKey", APIKEY_ACCESS);
+                params.put("apiKeyUser", apiKeyUser);
+                params.put("data", encodedImage);
+                return params;
+            }
+        };
+        Volley.newRequestQueue(this).add(postRequest);
+    }
+
+    public boolean errorEnvioImg(String response) {
+        try {
+            JSONObject jsonObj;
+            String error;
+            String errorMsg;
+            jsonObj = new JSONObject(response);
+            error = jsonObj.getString("status");
+            errorMsg = jsonObj.getString("msg");
+            if (error.equals("ERR") || error.equals("KO")) {
+                Log.d("TAG-errorExpedientes(): ", errorMsg);
+                return true;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Log.d("TAG-postMethod() EnvioImagen", "Error en método errorEnvioImg().");
         }
         return false;
     }

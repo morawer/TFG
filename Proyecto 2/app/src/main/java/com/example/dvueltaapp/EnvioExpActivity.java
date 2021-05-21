@@ -33,7 +33,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class EnvioExpActivity extends AppCompatActivity {
@@ -42,7 +45,7 @@ public class EnvioExpActivity extends AppCompatActivity {
     ImageView imgView;
     private static final int PICK_IMAGE = 100, PICTURE_RESULT = 122;
     private static final String TAG = "MainActivity";
-    private final String URL = "xxxxxxxxxxxxxxxxxxxxxxx";
+    private final String URL = "http://preskynet.dvuelta.es/api10addimagepretramitador";
     private final String APIKEY_ACCESS = "2c94243c0c0dc4452db4efd257d34d2f";
     private ContentValues values;
     private Uri imageUri;
@@ -120,8 +123,10 @@ public class EnvioExpActivity extends AppCompatActivity {
 
                         encodedImage = Base64.encodeToString(byteArray, Base64.DEFAULT);
 
-                        Toast.makeText(this, encodedImage.substring(0, 15), Toast.LENGTH_SHORT).show();
-                        System.out.print(encodedImage);
+                        postMethod();
+
+                        //Toast.makeText(this, encodedImage.substring(0, 15), Toast.LENGTH_SHORT).show();
+                        //System.out.print(encodedImage);
 
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -141,8 +146,10 @@ public class EnvioExpActivity extends AppCompatActivity {
 
                         encodedImage = Base64.encodeToString(byteArray, Base64.DEFAULT);
 
-                        Toast.makeText(this, encodedImage.substring(0, 15), Toast.LENGTH_SHORT).show();
-                        System.out.print(encodedImage);
+                        postMethod();
+
+                        //Toast.makeText(this, encodedImage.substring(0, 15), Toast.LENGTH_SHORT).show();
+                        //System.out.print(encodedImage);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -186,7 +193,7 @@ public class EnvioExpActivity extends AppCompatActivity {
         },
                 error -> {
                     error.printStackTrace();
-                    Toast.makeText(ExpedienteActivity.this, "Fallo en servidor", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Fallo en servidor", Toast.LENGTH_SHORT).show();
                     Log.d("LOG_onErrorResponse: ", "Fallo en servidor: " + statusCode);
                 }
         ) {
@@ -200,7 +207,8 @@ public class EnvioExpActivity extends AppCompatActivity {
                 Map<String, String> params = new HashMap<>();
                 params.put("apiKey", APIKEY_ACCESS);
                 params.put("apiKeyUser", apiKeyUser);
-                params.put("data", encodedImage);
+                params.put("imageName", fecha() + ".jpg");
+                params.put("image", encodedImage);
                 return params;
             }
         };
@@ -224,5 +232,14 @@ public class EnvioExpActivity extends AppCompatActivity {
             Log.d("TAG-postMethod() EnvioImagen", "Error en método errorEnvioImg().");
         }
         return false;
+    }
+
+    public String fecha() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_hh-mm-ss", Locale.getDefault());
+        Date date = new Date();
+
+        String fecha = dateFormat.format(date);
+        System.out.print(fecha);
+        return fecha;
     }
 }

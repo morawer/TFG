@@ -73,7 +73,7 @@ public class ImagenExpActivity extends AppCompatActivity {
 
             case R.id.menu_inicio:
             case R.id.menu_envio:
-                Intent envio = new Intent(WelcomeActivity.this, EnvioExpActivity.class);
+                Intent envio = new Intent(this, EnvioExpActivity.class);
                 envio.putExtra("apiKeyUser", apiKeyUser);
                 startActivity(envio);
                 break;
@@ -319,4 +319,5 @@ public class ImagenExpActivity extends AppCompatActivity {
             Toast.makeText(this, "NO TIENES APP PARA VER PDF", Toast.LENGTH_SHORT).show();
         }
     }
+
 }

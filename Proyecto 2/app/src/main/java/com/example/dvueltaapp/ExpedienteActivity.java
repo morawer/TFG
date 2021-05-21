@@ -66,7 +66,7 @@ public class ExpedienteActivity extends AppCompatActivity {
                 startActivity(inicio);
                 break;
             case R.id.menu_envio:
-                Intent envio = new Intent(WelcomeActivity.this, EnvioExpActivity.class);
+                Intent envio = new Intent(this, EnvioExpActivity.class);
                 apiKeyUser = cliente.getApiKey();
                 envio.putExtra("apiKeyUser", apiKeyUser);
                 startActivity(envio);

@@ -46,10 +46,9 @@ public class ExpedienteActivity extends AppCompatActivity {
     Expedientes expediente;
     ArrayList<Expedientes> expedienteList;
     ListView listViewExpedientes;
-    String apiKeyUser;
-    String nombreUser;
-    TextView fecha;
-    TextView nombreExp;
+    String apiKeyUser, nombreUser;
+    TextView fecha, nombreExp;
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -67,7 +66,9 @@ public class ExpedienteActivity extends AppCompatActivity {
                 startActivity(inicio);
                 break;
             case R.id.menu_envio:
-                Intent envio = new Intent(ExpedienteActivity.this, EnvioExpActivity.class);
+                Intent envio = new Intent(WelcomeActivity.this, EnvioExpActivity.class);
+                apiKeyUser = cliente.getApiKey();
+                envio.putExtra("apiKeyUser", apiKeyUser);
                 startActivity(envio);
                 break;
             case R.id.menu_ayuda:

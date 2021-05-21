@@ -27,6 +27,7 @@ public class WelcomeActivity extends AppCompatActivity {
     private TextView welcome;
     Cliente cliente = new Cliente();
     Intent intent;
+    String apiKeyUser;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -40,7 +41,7 @@ public class WelcomeActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.menu_expediente:
                 intent = new Intent(WelcomeActivity.this, ExpedienteActivity.class);
-                String apiKeyUser = cliente.getApiKey();
+                apiKeyUser = cliente.getApiKey();
                 String nombreUser = cliente.getNombre();
                 intent.putExtra("apiKeyUser", apiKeyUser);
                 intent.putExtra("nombreUser", nombreUser);
@@ -49,6 +50,8 @@ public class WelcomeActivity extends AppCompatActivity {
 
             case R.id.menu_envio:
                 Intent envio = new Intent(WelcomeActivity.this, EnvioExpActivity.class);
+                apiKeyUser = cliente.getApiKey();
+                envio.putExtra("apiKeyUser", apiKeyUser);
                 startActivity(envio);
                 break;
             case R.id.menu_ayuda:

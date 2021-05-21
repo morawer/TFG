@@ -36,8 +36,7 @@ public class EnvioExpActivity extends AppCompatActivity {
     private ContentValues values;
     private Uri imageUri;
     private Bitmap thumbnail;
-    String imageurl;
-    String encodedImage;
+    String imageurl, encodedImage, apiKeyUser;
 
 
     @Override
@@ -45,6 +44,8 @@ public class EnvioExpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_envio_exp);
 
+        Bundle extras = getIntent().getExtras();
+        apiKeyUser = extras.getString("apiKeyUser");
 
         imgView = findViewById(R.id.imagenCamara);
         camaraButton = findViewById(R.id.botonCamara);

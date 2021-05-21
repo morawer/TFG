@@ -73,7 +73,8 @@ public class ImagenExpActivity extends AppCompatActivity {
 
             case R.id.menu_inicio:
             case R.id.menu_envio:
-                Intent envio = new Intent(ImagenExpActivity.this, EnvioExpActivity.class);
+                Intent envio = new Intent(WelcomeActivity.this, EnvioExpActivity.class);
+                envio.putExtra("apiKeyUser", apiKeyUser);
                 startActivity(envio);
                 break;
             case R.id.menu_ayuda:

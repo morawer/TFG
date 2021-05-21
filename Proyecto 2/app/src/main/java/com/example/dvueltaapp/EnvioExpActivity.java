@@ -29,15 +29,12 @@ public class EnvioExpActivity extends AppCompatActivity {
 
     Button camaraButton, galeriaButton;
     ImageView imgView;
-
-    private static final int PICK_IMAGE = 100;
+    private static final int PICK_IMAGE = 100, PICTURE_RESULT = 122;
     private static final String TAG = "MainActivity";
-    private static final int PICTURE_RESULT = 122;
     private ContentValues values;
     private Uri imageUri;
     private Bitmap thumbnail;
-    String imageurl, encodedImage, apiKeyUser;
-
+    private String imageurl, encodedImage, apiKeyUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,11 +57,15 @@ public class EnvioExpActivity extends AppCompatActivity {
         galeriaButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-                startActivityForResult(gallery, PICK_IMAGE);
+                abrirGaleriaImagenes();
             }
         });
 
+    }
+
+    private void abrirGaleriaImagenes() {
+        Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+        startActivityForResult(gallery, PICK_IMAGE);
     }
 
     private void abrirCamara() {

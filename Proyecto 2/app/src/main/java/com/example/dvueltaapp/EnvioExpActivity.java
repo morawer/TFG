@@ -115,7 +115,7 @@ public class EnvioExpActivity extends AppCompatActivity {
                         imgView.setImageBitmap(thumbnail);
                         imageurl = getRealPathFromURI(imageUri);
                         Bitmap bmp = BitmapFactory.decodeFile(imageurl);
-                        Bitmap imageScaled = Bitmap.createScaledBitmap(bmp, 1500, 2000, false);
+                        Bitmap imageScaled = Bitmap.createScaledBitmap(bmp,  2000, 1500, false);
 
                         ByteArrayOutputStream bos = new ByteArrayOutputStream();
                         imageScaled.compress(Bitmap.CompressFormat.JPEG, 40, bos);
@@ -138,7 +138,7 @@ public class EnvioExpActivity extends AppCompatActivity {
                         imgView.setImageURI(imageUri);
                         imageurl = getRealPathFromURI(imageUri);
                         Bitmap bmp = BitmapFactory.decodeFile(imageurl);
-                        Bitmap imageScaled = Bitmap.createScaledBitmap(bmp, 1500, 2000, false);
+                        Bitmap imageScaled = Bitmap.createScaledBitmap(bmp, 2000, 1500, false);
 
                         ByteArrayOutputStream bos = new ByteArrayOutputStream();
                         imageScaled.compress(Bitmap.CompressFormat.JPEG, 40, bos);

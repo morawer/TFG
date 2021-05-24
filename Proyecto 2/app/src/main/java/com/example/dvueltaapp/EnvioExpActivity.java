@@ -180,7 +180,7 @@ public class EnvioExpActivity extends AppCompatActivity {
                 if (errorEnvioImg(response)) {
                     Toast.makeText(this, "Error al enviar la imagen.", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(this, "Imagen enviada correctamente.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Imagen enviada correctamente.", Toast.LENGTH_LONG).show();
                 }
             }
         },

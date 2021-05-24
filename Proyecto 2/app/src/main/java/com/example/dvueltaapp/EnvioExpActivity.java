@@ -52,7 +52,6 @@ public class EnvioExpActivity extends AppCompatActivity {
     private Bitmap thumbnail;
     private String imageurl, encodedImage, apiKeyUser;
     private int statusCode = 0;
-    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +77,6 @@ public class EnvioExpActivity extends AppCompatActivity {
                 abrirGaleriaImagenes();
             }
         });
-
     }
 
     private void abrirGaleriaImagenes() {
@@ -125,9 +123,6 @@ public class EnvioExpActivity extends AppCompatActivity {
 
                         postMethod();
 
-                        //Toast.makeText(this, encodedImage.substring(0, 15), Toast.LENGTH_SHORT).show();
-                        //System.out.print(encodedImage);
-
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -148,8 +143,6 @@ public class EnvioExpActivity extends AppCompatActivity {
 
                         postMethod();
 
-                        //Toast.makeText(this, encodedImage.substring(0, 15), Toast.LENGTH_SHORT).show();
-                        //System.out.print(encodedImage);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

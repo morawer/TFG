@@ -2,7 +2,9 @@ package com.example.dvueltaapp;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -180,7 +182,18 @@ public class EnvioExpActivity extends AppCompatActivity {
                 if (errorEnvioImg(response)) {
                     Toast.makeText(this, "Error al enviar la imagen.", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(this, "Imagen enviada correctamente.", Toast.LENGTH_LONG).show();
+                    AlertDialog.Builder imageOkAlert = new AlertDialog.Builder(EnvioExpActivity.this);
+                    imageOkAlert.setMessage("En breves instantes digitalizaremos la multa.");
+                    imageOkAlert.setCancelable(false);
+                    imageOkAlert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+                    AlertDialog titulo = imageOkAlert.create();
+                    titulo.setTitle("Imagen enviada correctamente");
+                    titulo.show();
                 }
             }
         },

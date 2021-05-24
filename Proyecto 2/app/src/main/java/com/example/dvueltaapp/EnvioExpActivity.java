@@ -113,10 +113,10 @@ public class EnvioExpActivity extends AppCompatActivity {
                         imgView.setImageBitmap(thumbnail);
                         imageurl = getRealPathFromURI(imageUri);
                         Bitmap bmp = BitmapFactory.decodeFile(imageurl);
-                        Bitmap imageScaled = Bitmap.createScaledBitmap(bmp,  2000, 1500, false);
+                        Bitmap imageScaled = Bitmap.createScaledBitmap(bmp,  1500, 2000, true);
 
                         ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                        imageScaled.compress(Bitmap.CompressFormat.JPEG, 40, bos);
+                        imageScaled.compress(Bitmap.CompressFormat.JPEG, 50, bos);
                         byte[] byteArray = bos.toByteArray();
 
                         encodedImage = Base64.encodeToString(byteArray, Base64.DEFAULT);
@@ -133,10 +133,10 @@ public class EnvioExpActivity extends AppCompatActivity {
                         imgView.setImageURI(imageUri);
                         imageurl = getRealPathFromURI(imageUri);
                         Bitmap bmp = BitmapFactory.decodeFile(imageurl);
-                        Bitmap imageScaled = Bitmap.createScaledBitmap(bmp, 2000, 1500, false);
+                        Bitmap imageScaled = Bitmap.createScaledBitmap(bmp, 1500, 2000, true);
 
                         ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                        imageScaled.compress(Bitmap.CompressFormat.JPEG, 40, bos);
+                        imageScaled.compress(Bitmap.CompressFormat.JPEG, 50, bos);
                         byte[] byteArray = bos.toByteArray();
 
                         encodedImage = Base64.encodeToString(byteArray, Base64.DEFAULT);

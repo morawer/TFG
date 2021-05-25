@@ -164,10 +164,10 @@ public class EnvioExpActivity extends AppCompatActivity {
         int permissionCheck = ContextCompat.checkSelfPermission(
                 this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
         if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
-            Log.i(TAG, "Permission not granted.");
+            Log.i(TAG, "No tienes permisos");
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 225);
         } else {
-            Log.i(TAG, "You already have permission!");
+            Log.i(TAG, "Tienes permisos.");
             return true;
         }
         return false;

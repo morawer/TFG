@@ -27,8 +27,8 @@ public class MainActivity extends AppCompatActivity {
     private EditText name;
     private EditText password;
     private int statusCode = 0;
-    private final String URL = "http://preskynet.dvuelta.es/api10getuserapikey";
-    private final String APIKEY_ACCESS = "2c94243c0c0dc4452db4efd257d34d2f";
+    private final String URL = "http://preskynet.dvuelta.es/api10getuserapikey"; //URL acceso a API
+    private final String APIKEY_ACCESS = "2c94243c0c0dc4452db4efd257d34d2f"; //Token de acceso ApiMobile
     Intent intent;
     String user;
     String passwordUser;

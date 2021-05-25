@@ -14,6 +14,7 @@
       <w>contacto</w>
       <w>contraseña</w>
       <w>correcta</w>
+      <w>correctamente</w>
       <w>correcto</w>
       <w>creado</w>
       <w>crear</w>
@@ -24,9 +25,12 @@
       <w>denunciado</w>
       <w>desactivada</w>
       <w>descargar</w>
+      <w>digitalizaremos</w>
       <w>días</w>
       <w>entrar</w>
+      <w>enviada</w>
       <w>enviar</w>
+      <w>envio</w>
       <w>escribir</w>
       <w>estado</w>
       <w>expediente</w>
@@ -35,13 +39,16 @@
       <w>fallo</w>
       <w>fecha</w>
       <w>firma</w>
+      <w>galeria</w>
       <w>hecho</w>
       <w>imagen</w>
       <w>imagenes</w>
+      <w>imageurl</w>
       <w>importe</w>
       <w>incorrecto</w>
       <w>infraccion</w>
       <w>inicio</w>
+      <w>instantes</w>
       <w>lectura</w>
       <w>lista</w>
       <w>logoreacciona</w>
@@ -50,6 +57,7 @@
       <w>matrícula</w>
       <w>metodo</w>
       <w>mibarra</w>
+      <w>multa</w>
       <w>método</w>
       <w>noches</w>
       <w>nombre</w>
@@ -72,8 +80,10 @@
       <w>tamaño</w>
       <w>tardes</w>
       <w>tienes</w>
+      <w>titulo</w>
       <w>toca</w>
       <w>trámite</w>
+      <w>unos</w>
       <w>usuario</w>
       <w>xxxx</w>
       <w>xxxxx</w>

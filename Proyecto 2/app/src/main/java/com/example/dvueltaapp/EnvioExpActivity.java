@@ -49,10 +49,9 @@ public class EnvioExpActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     private final String URL = "http://preskynet.dvuelta.es/api10addimagepretramitador";
     private final String APIKEY_ACCESS = "2c94243c0c0dc4452db4efd257d34d2f";
-    private ContentValues values;
     private Uri imageUri;
-    private Bitmap thumbnail;
-    private String imageurl, encodedImage, apiKeyUser;
+    private String encodedImage;
+    private String apiKeyUser;
     private int statusCode = 0;
 
     @Override
@@ -93,7 +92,7 @@ public class EnvioExpActivity extends AppCompatActivity {
                 return;
             }
         }
-        values = new ContentValues();
+        ContentValues values = new ContentValues();
         values.put(MediaStore.Images.Media.TITLE, "MyPicture");
         values.put(MediaStore.Images.Media.DESCRIPTION, "Photo taken on " + System.currentTimeMillis());
         imageUri = getContentResolver().insert(
@@ -107,11 +106,12 @@ public class EnvioExpActivity extends AppCompatActivity {
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        String imageurl;
         switch (requestCode) {
             case PICTURE_RESULT:
                 if (requestCode == PICTURE_RESULT && resultCode == Activity.RESULT_OK)
                     try {
-                        thumbnail = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+                        Bitmap thumbnail = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
                         imgView.setImageBitmap(thumbnail);
                         imageurl = getRealPathFromURI(imageUri);
                         Bitmap bmp = BitmapFactory.decodeFile(imageurl);
@@ -183,7 +183,7 @@ public class EnvioExpActivity extends AppCompatActivity {
                     Toast.makeText(this, "Error al enviar la imagen.", Toast.LENGTH_SHORT).show();
                 } else {
                     AlertDialog.Builder imageOkAlert = new AlertDialog.Builder(EnvioExpActivity.this);
-                    imageOkAlert.setMessage("En breves instantes digitalizaremos la multa.");
+                    imageOkAlert.setMessage("En unos instantes digitalizaremos la multa.");
                     imageOkAlert.setCancelable(false);
                     imageOkAlert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         @Override

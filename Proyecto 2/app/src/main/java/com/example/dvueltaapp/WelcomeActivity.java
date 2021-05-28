@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Typeface;
+import android.hardware.camera2.params.ColorSpaceTransform;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,10 +17,30 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.android.volley.NetworkResponse;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.utils.ColorTemplate;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import harmony.java.awt.Color;
 
 public class WelcomeActivity extends AppCompatActivity {
 
@@ -28,6 +49,7 @@ public class WelcomeActivity extends AppCompatActivity {
     Cliente cliente = new Cliente();
     Intent intent;
     String apiKeyUser;
+    PieChart pieChart;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -75,6 +97,8 @@ public class WelcomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
+        pieChart = findViewById(R.id.graficoPastel);
+
         Toolbar mibarra= findViewById(R.id.toolBar);
         setSupportActionBar(mibarra);
 
@@ -88,7 +112,34 @@ public class WelcomeActivity extends AppCompatActivity {
         welcome.setTypeface(typeface);
 
         leerJson(clienteJson);
+        crearGrafico();
     }
+
+    private void crearGrafico() {
+
+        Description description = new Description();
+        description.setText("Gráfico de expedientes.");
+
+        pieChart.setDescription(description);
+
+        ArrayList<PieEntry> pieEntries = new ArrayList<>();
+
+        pieEntries.add(new PieEntry(2, "Alcoholemia"));
+        pieEntries.add(new PieEntry(3, "Velocidad"));
+        pieEntries.add(new PieEntry(6, "Aparcamiento"));
+        pieEntries.add(new PieEntry(1, "Seguro"));
+
+
+
+
+        PieDataSet pieDataSet = new PieDataSet(pieEntries, "");
+        pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+
+        PieData pieData = new PieData(pieDataSet);
+
+        pieChart.setData(pieData);
+    }
+
 
     //Método para leer el Json obtenido en extras de MainActivity.
     @SuppressLint("SetTextI18n")
@@ -115,16 +166,16 @@ public class WelcomeActivity extends AppCompatActivity {
         int horas = dt.getHours();
 
         if (horas >= 6 && horas < 12){
-            welcome.setText("Buenos días \n" + cliente.getNombre());
+            welcome.setText("Buenos días " + cliente.getNombre());
         }
         if (horas >= 12 && horas < 20){
-            welcome.setText("Buenas tardes \n" + cliente.getNombre());
+            welcome.setText("Buenas tardes " + cliente.getNombre());
         }
         if (horas >= 20 && horas <= 23){
-            welcome.setText("Buenas noches \n" + cliente.getNombre());
+            welcome.setText("Buenas noches " + cliente.getNombre());
         }
         if (horas >= 0 && horas < 6){
-            welcome.setText("Buenas noches \n" + cliente.getNombre());
+            welcome.setText("Buenas noches " + cliente.getNombre());
         }
     }
 }

@@ -24,23 +24,39 @@
 
     </androidx.appcompat.widget.Toolbar>
 
+
     <TextView
         android:id="@+id/welcomeText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="NOMBRE TEST APELLIDOS TEST"
-        android:padding="14dp"
-        android:textSize="36sp"
-        android:textColor="#013171"
         android:lineSpacingExtra="-5dp"
+        android:padding="14dp"
+        android:text="NOMBRE TEST APELLIDOS TEST"
+        android:textColor="#013171"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.136"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.199" />
+        app:layout_constraintVertical_bias="0.119" />
 
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="330dp"
+        android:layout_margin="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/welcomeText"
+        app:layout_constraintVertical_bias="0.145"
+        tools:layout_editor_absoluteX="16dp">
 
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/graficoPastel"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </com.github.mikephil.charting.charts.PieChart>
+
+    </androidx.cardview.widget.CardView>
 
     <ImageView
         android:id="@+id/gradienteFirma"

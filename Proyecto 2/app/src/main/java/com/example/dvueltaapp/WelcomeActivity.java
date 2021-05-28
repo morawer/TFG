@@ -44,7 +44,10 @@ import harmony.java.awt.Color;
 
 public class WelcomeActivity extends AppCompatActivity {
 
+    private static final String APIKEY_ACCESS = "2c94243c0c0dc4452db4efd257d34d2f";
+    private final String URL = "http://preskynet.dvuelta.es/api10getexpedients";
     private final String URL_CONTACTO = "https://www.dvuelta.es/index.php/contacto";
+    private int statusCode = 200;
     private TextView welcome;
     Cliente cliente = new Cliente();
     Intent intent;
@@ -112,32 +115,7 @@ public class WelcomeActivity extends AppCompatActivity {
         welcome.setTypeface(typeface);
 
         leerJson(clienteJson);
-        crearGrafico();
-    }
-
-    private void crearGrafico() {
-
-        Description description = new Description();
-        description.setText("Gráfico de expedientes.");
-
-        pieChart.setDescription(description);
-
-        ArrayList<PieEntry> pieEntries = new ArrayList<>();
-
-        pieEntries.add(new PieEntry(2, "Alcoholemia"));
-        pieEntries.add(new PieEntry(3, "Velocidad"));
-        pieEntries.add(new PieEntry(6, "Aparcamiento"));
-        pieEntries.add(new PieEntry(1, "Seguro"));
-
-
-
-
-        PieDataSet pieDataSet = new PieDataSet(pieEntries, "");
-        pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-
-        PieData pieData = new PieData(pieDataSet);
-
-        pieChart.setData(pieData);
+        postMethod();
     }
 
 
@@ -151,6 +129,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
             cliente.setNombre(msg.getString("displayName"));
             cliente.setApiKey(msg.getString("apiKey"));
+            apiKeyUser = cliente.getApiKey();
 
             welcomeUser();
 
@@ -177,5 +156,110 @@ public class WelcomeActivity extends AppCompatActivity {
         if (horas >= 0 && horas < 6){
             welcome.setText("Buenas noches " + cliente.getNombre());
         }
+    }
+
+    //Metodo para enviar los datos en una peticion Http post.
+    public void postMethod() {
+        StringRequest postRequest = new StringRequest(Request.Method.POST, URL, response -> {
+            System.out.println(response);
+            Log.d("LOG_onResponse: ", String.valueOf(statusCode));
+
+            if (statusCode == 200) {
+                if (errorExpedientes(response)) {
+                    Toast.makeText(WelcomeActivity.this, "Problema al obtener los expedientes", Toast.LENGTH_SHORT).show();
+                    intent = new Intent(WelcomeActivity.this, WelcomeActivity.class);
+                    startActivity(intent);
+                } else {
+                    leerJsonGrafico(response);
+                }
+            }
+        },
+                error -> {
+                    error.printStackTrace();
+                    Toast.makeText(WelcomeActivity.this, "Fallo en servidor", Toast.LENGTH_SHORT).show();
+                    Log.d("LOG_onErrorResponse: ", "Fallo en servidor: " + statusCode);
+                }
+        ) {
+            @Override
+            protected Response<String> parseNetworkResponse(NetworkResponse response) {
+                return super.parseNetworkResponse(response);
+            }
+
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("apiKey", APIKEY_ACCESS);
+                params.put("apiKeyUser", apiKeyUser);
+                return params;
+            }
+        };
+        Volley.newRequestQueue(this).add(postRequest);
+    }
+
+    private void leerJsonGrafico(String clienteJson) {
+
+        try {
+            JSONObject jsonObject = new JSONObject(clienteJson);
+            JSONArray jsonArray = jsonObject.getJSONArray("msg");
+
+            Description description = new Description();
+            description.setText("Gráfico de expedientes.");
+
+            pieChart.setDescription(description);
+
+            ArrayList<PieEntry> pieEntries = new ArrayList<>();
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                String hechoDenunciado = "";
+                int numHechoDenuciado = 0;
+                String hecho = "";
+
+                JSONObject json = jsonArray.getJSONObject(i);
+                hechoDenunciado = json.getString("HechoDenunciado");
+
+                for (int x = 0; x < jsonArray.length(); x++) {
+                    JSONObject json2 = jsonArray.getJSONObject(x);
+                    hecho = json2.getString("HechoDenunciado");
+                    if(hecho.equalsIgnoreCase(hechoDenunciado)){
+
+                        numHechoDenuciado++;
+                        System.out.println("Coincide" + numHechoDenuciado + hecho);
+                    }
+                }
+                System.out.println("NUMERO: " + numHechoDenuciado + " HECHO: " + hechoDenunciado);
+                pieEntries.add(new PieEntry(numHechoDenuciado, hechoDenunciado));
+
+
+            }
+            PieDataSet pieDataSet = new PieDataSet(pieEntries, "");
+            pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+
+            PieData pieData = new PieData(pieDataSet);
+
+            pieChart.setData(pieData);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    //Metodo que comprueba que el login con el servidor es correcto.
+    public boolean errorExpedientes(String response) {
+        try {
+            JSONObject jsonObj;
+            String error;
+            String errorMsg;
+            jsonObj = new JSONObject(response);
+            error = jsonObj.getString("status");
+            errorMsg = jsonObj.getString("msg");
+            if (error.equals("ERR") || error.equals("KO")) {
+                Log.d("TAG-errorExpedientes(): ", errorMsg);
+                return true;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Log.d("TAG-errorLogin()", "Error en método errorExpedientes().");
+        }
+        return false;
     }
 }

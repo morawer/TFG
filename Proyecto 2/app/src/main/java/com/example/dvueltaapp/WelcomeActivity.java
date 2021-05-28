@@ -47,7 +47,7 @@ public class WelcomeActivity extends AppCompatActivity {
     private static final String APIKEY_ACCESS = "2c94243c0c0dc4452db4efd257d34d2f";
     private final String URL = "http://preskynet.dvuelta.es/api10getexpedients";
     private final String URL_CONTACTO = "https://www.dvuelta.es/index.php/contacto";
-    private int statusCode = 200;
+    private int statusCode = 0;
     private TextView welcome;
     Cliente cliente = new Cliente();
     Intent intent;
@@ -182,6 +182,7 @@ public class WelcomeActivity extends AppCompatActivity {
         ) {
             @Override
             protected Response<String> parseNetworkResponse(NetworkResponse response) {
+                statusCode = response.statusCode;
                 return super.parseNetworkResponse(response);
             }
 
@@ -202,11 +203,12 @@ public class WelcomeActivity extends AppCompatActivity {
             JSONArray jsonArray = jsonObject.getJSONArray("msg");
 
             Description description = new Description();
-            description.setText("Gráfico de expedientes.");
+            description.setText("");
 
             pieChart.setDescription(description);
 
             ArrayList<PieEntry> pieEntries = new ArrayList<>();
+
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 String hechoDenunciado = "";
@@ -220,27 +222,21 @@ public class WelcomeActivity extends AppCompatActivity {
                     JSONObject json2 = jsonArray.getJSONObject(x);
                     hecho = json2.getString("HechoDenunciado");
                     if(hecho.equalsIgnoreCase(hechoDenunciado)){
-
                         numHechoDenuciado++;
                         System.out.println("Coincide" + numHechoDenuciado + hecho);
                     }
                 }
                 System.out.println("NUMERO: " + numHechoDenuciado + " HECHO: " + hechoDenunciado);
                 pieEntries.add(new PieEntry(numHechoDenuciado, hechoDenunciado));
-
-
             }
             PieDataSet pieDataSet = new PieDataSet(pieEntries, "");
             pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
 
             PieData pieData = new PieData(pieDataSet);
-
             pieChart.setData(pieData);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-
     }
 
     //Metodo que comprueba que el login con el servidor es correcto.

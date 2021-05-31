@@ -4,12 +4,12 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Typeface;
-import android.hardware.camera2.params.ColorSpaceTransform;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,14 +33,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
-import harmony.java.awt.Color;
 
 public class WelcomeActivity extends AppCompatActivity {
 
@@ -52,7 +48,7 @@ public class WelcomeActivity extends AppCompatActivity {
     Cliente cliente = new Cliente();
     Intent intent;
     String apiKeyUser;
-    PieChart pieChart;
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -100,7 +96,7 @@ public class WelcomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
-        pieChart = findViewById(R.id.graficoPastel);
+
 
         Toolbar mibarra= findViewById(R.id.toolBar);
         setSupportActionBar(mibarra);
@@ -197,22 +193,15 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     private void leerJsonGrafico(String clienteJson) {
+        ArrayList<PieEntry> pieEntries = new ArrayList<>();
 
         try {
             JSONObject jsonObject = new JSONObject(clienteJson);
             JSONArray jsonArray = jsonObject.getJSONArray("msg");
 
-            Description description = new Description();
-            description.setText("");
-
-            pieChart.setDescription(description);
-
-            ArrayList<PieEntry> pieEntries = new ArrayList<>();
-
-
             for (int i = 0; i < jsonArray.length(); i++) {
                 String hechoDenunciado = "";
-                int numHechoDenuciado = 0;
+                int numHechoDenunciado = 0;
                 String hecho = "";
 
                 JSONObject json = jsonArray.getJSONObject(i);
@@ -222,18 +211,27 @@ public class WelcomeActivity extends AppCompatActivity {
                     JSONObject json2 = jsonArray.getJSONObject(x);
                     hecho = json2.getString("HechoDenunciado");
                     if(hecho.equalsIgnoreCase(hechoDenunciado)){
-                        numHechoDenuciado++;
-                        System.out.println("Coincide" + numHechoDenuciado + hecho);
+                        numHechoDenunciado++;
+                        System.out.println("Coincide" + numHechoDenunciado + hecho);
                     }
                 }
-                System.out.println("NUMERO: " + numHechoDenuciado + " HECHO: " + hechoDenunciado);
-                pieEntries.add(new PieEntry(numHechoDenuciado, hechoDenunciado));
+                System.out.println("NUMERO: " + numHechoDenunciado + " HECHO: " + hechoDenunciado);
+                pieEntries.add(new PieEntry(numHechoDenunciado, hechoDenunciado));
             }
+            PieChart pieChart;
+            pieChart = findViewById(R.id.graficoPastel);
+
+            Description description = new Description();
+            description.setText("");
+
+            pieChart.setDescription(description);
             PieDataSet pieDataSet = new PieDataSet(pieEntries, "");
             pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
 
             PieData pieData = new PieData(pieDataSet);
             pieChart.setData(pieData);
+            pieChart.setVisibility(View.VISIBLE);
+
         } catch (JSONException e) {
             e.printStackTrace();
         }

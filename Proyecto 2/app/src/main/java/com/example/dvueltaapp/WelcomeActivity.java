@@ -222,7 +222,8 @@ public class WelcomeActivity extends AppCompatActivity {
             pieChart = findViewById(R.id.graficoPastel);
 
             Description description = new Description();
-            description.setText("");
+            description.setText(jsonArray.length() + " Expedientes    ");
+            description.setTextSize(16);
 
             pieChart.setDescription(description);
             PieDataSet pieDataSet = new PieDataSet(pieEntries, "");
@@ -231,6 +232,7 @@ public class WelcomeActivity extends AppCompatActivity {
             PieData pieData = new PieData(pieDataSet);
             pieChart.setData(pieData);
             pieChart.setVisibility(View.VISIBLE);
+            pieChart.animateXY(1000, 1000);
 
         } catch (JSONException e) {
             e.printStackTrace();

@@ -216,7 +216,7 @@ public class WelcomeActivity extends AppCompatActivity {
                     }
                 }
                 System.out.println("NUMERO: " + numHechoDenunciado + " HECHO: " + hechoDenunciado);
-                pieEntries.add(new PieEntry(numHechoDenunciado, hechoDenunciado));
+                pieEntries.add(new PieEntry((100 / jsonArray.length()) * numHechoDenunciado, hechoDenunciado));
             }
             PieChart pieChart;
             pieChart = findViewById(R.id.graficoPastel);

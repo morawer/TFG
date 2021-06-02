@@ -219,7 +219,7 @@ public class WelcomeActivity extends AppCompatActivity {
                     }
                 }
                 System.out.println("NUMERO: " + numHechoDenunciado + " HECHO: " + hechoDenunciado);
-
+                //Se recorre la lista por si hay alguno repetido no meterlo en el grafico.
                 for (int y = 0; y < listaExp.size(); y++) {
                     if (listaExp.get(y).equals(hechoDenunciado)){
                         coincide = true;

@@ -194,12 +194,15 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private void leerJsonGrafico(String clienteJson) {
         ArrayList<PieEntry> pieEntries = new ArrayList<>();
+        ArrayList<String> listaExp = new ArrayList<>();
+        boolean coincide = false;
 
         try {
             JSONObject jsonObject = new JSONObject(clienteJson);
             JSONArray jsonArray = jsonObject.getJSONArray("msg");
 
             for (int i = 0; i < jsonArray.length(); i++) {
+                coincide = false;
                 String hechoDenunciado = "";
                 int numHechoDenunciado = 0;
                 String hecho = "";
@@ -216,7 +219,17 @@ public class WelcomeActivity extends AppCompatActivity {
                     }
                 }
                 System.out.println("NUMERO: " + numHechoDenunciado + " HECHO: " + hechoDenunciado);
-                pieEntries.add(new PieEntry((100 / jsonArray.length()) * numHechoDenunciado, hechoDenunciado));
+
+                for (int y = 0; y < listaExp.size(); y++) {
+                    if (listaExp.get(y).equals(hechoDenunciado)){
+                        coincide = true;
+                        System.out.println("Entroooo!!    " + coincide + " >>>>> " + listaExp.get(y) );
+                    }
+                }
+                listaExp.add(hechoDenunciado);
+                if(coincide == false){
+                    pieEntries.add(new PieEntry(numHechoDenunciado, hechoDenunciado));
+                }
             }
             PieChart pieChart;
             pieChart = findViewById(R.id.graficoPastel);

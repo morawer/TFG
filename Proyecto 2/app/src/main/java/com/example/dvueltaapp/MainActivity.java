@@ -1,7 +1,11 @@
 package com.example.dvueltaapp;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -9,6 +13,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
@@ -24,6 +30,7 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String DVUELTA_PUSH = "0001";
     private EditText name;
     private EditText password;
     private int statusCode = 0;
@@ -44,6 +51,27 @@ public class MainActivity extends AppCompatActivity {
         Button login = findViewById(R.id.botonEntrar);
         user = name.getText().toString();
         passwordUser = password.getText().toString();
+
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+
+        createNotificationChannel();
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, DVUELTA_PUSH)
+                .setSmallIcon(R.drawable.logo_dvuelta_push)
+                .setContentTitle("Nueva multa encontrada.")
+                .setContentText("Acceda para obtener mas información.")
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true)
+                //.setStyle(new NotificationCompat.BigTextStyle()
+                        //.bigText("Much longer text that cannot fit one line..."))
+                .setPriority(NotificationCompat.PRIORITY_HIGH);
+
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+
+        // notificationId is a unique int for each notification that you must define
+        notificationManager.notify(0001, builder.build());
 
         login.setOnClickListener(v -> {
             user = name.getText().toString();
@@ -118,4 +146,19 @@ public class MainActivity extends AppCompatActivity {
         password.setText("");
         name.requestFocus();
     }
+    private void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(DVUELTA_PUSH, "PUSH DVUELTA", importance);
+            channel.setDescription("Notificaciones DVUELTA");
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
 }

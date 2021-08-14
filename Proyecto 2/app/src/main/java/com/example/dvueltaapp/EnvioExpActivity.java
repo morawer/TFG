@@ -47,8 +47,8 @@ public class EnvioExpActivity extends AppCompatActivity {
     ImageView imgView;
     private static final int PICK_IMAGE = 100, PICTURE_RESULT = 122;
     private static final String TAG = "MainActivity";
-    private final String URL = "http://preskynet.dvuelta.es/api10addimagepretramitador";
-    private final String APIKEY_ACCESS = "2c94243c0c0dc4452db4efd257d34d2f";
+    private final String URL = "";  //URL server
+    private final String APIKEY_ACCESS = ""; //Token acceso
     private Uri imageUri;
     private String encodedImage;
     private String apiKeyUser;

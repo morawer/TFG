@@ -40,8 +40,8 @@ import java.util.Map;
 
 public class WelcomeActivity extends AppCompatActivity {
 
-    private static final String APIKEY_ACCESS = "2c94243c0c0dc4452db4efd257d34d2f";
-    private final String URL = "http://preskynet.dvuelta.es/api10getexpedients";
+    private static final String APIKEY_ACCESS = ""; //Token de acceso
+    private final String URL = ""; //URL servidor.
     private final String URL_CONTACTO = "https://www.dvuelta.es/index.php/contacto";
     private int statusCode = 0;
     private TextView welcome;

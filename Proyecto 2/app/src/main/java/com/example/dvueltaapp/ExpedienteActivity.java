@@ -35,8 +35,8 @@ import java.util.Map;
 
 public class ExpedienteActivity extends AppCompatActivity {
 
-    private final String APIKEY_ACCESS = "2c94243c0c0dc4452db4efd257d34d2f";
-    private final String URL = "http://preskynet.dvuelta.es/api10getexpedients";
+    private final String APIKEY_ACCESS = ""; //Token acceso
+    private final String URL = ""; //URL servidor.
     private int statusCode = 0;
     private final String URL_CONTACTO = "https://www.dvuelta.es/index.php/contacto";
 
